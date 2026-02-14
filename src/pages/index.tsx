@@ -10,13 +10,9 @@ export default function Index() {
                 <title>UiXplore</title>
             </Head>
             <main className={`main-border-around `}>
-                <div className="container py-8 flex gap-4 flex-wrap justify-center">
-                    <Button>Default Button</Button>
-                    <Button variant="secondary">Secondary</Button>
-                    <Button variant="outline">Outline</Button>
-                    <Button variant="destructive">Destructive</Button>
-                    <Button variant="ghost">Ghost</Button>
-                    <Button variant="link">Link</Button>
+                <div className="container py-8 text-center justify-center">
+                    <h1 className="text-5xl font-bold">The Largest Library of <br />Open-Source UI</h1>
+                    <p className="text-center">Community-built library of UI elements. Copy as HTML/CSS, Tailwind, React and Figma.</p>
                 </div>
                 <ShadowCardGrid />
             </main>

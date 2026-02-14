@@ -1,16 +1,12 @@
 import Image from 'next/image';
-const logo = '/images/bgs/UIXPLOOR.svg';
 import styles from './header.module.css';
-const mainLogo = '/images/logos/main-logo.svg';
+import { Button } from '@/components/ui/button';
+
 export default function Header() {
     return (
         <>
-
-            <header>
-
-
+            {/* <header>
                 <div className="relative w-full flex justify-center">
-                    {/* BLUR GLOW */}
                     <div className='flex w-full items-center justify-evenly absolute top-0 left-0 p-5 z-20'>
                         <div>
                             <Image
@@ -25,8 +21,6 @@ export default function Header() {
                             Main
                         </div>
                     </div>
-
-                    {/* CONTENT */}
                     <Image
                         className="relative z-10 w-full "
                         src={logo}
@@ -53,18 +47,25 @@ export default function Header() {
       pointer-events-none
         `}
                     />
-
-
                 </div>
+            </header > */}
 
 
-
-
-
-            </header >
-
-
-
+            <header>
+                <div className={`${styles['svg-bg']} position-absolute -z-10 absolute top-[-40%] left-1/2 -translate-x-1/2 w-full h-[700px] bg-linear-to-b from-[#CC97F4] via-[#722BFF] to-transparent blur-[160px] opacity-70 pointer-events-none`} />
+                <Image src={'/images/bgs/UIXPLOOR.svg'} width={200} height={100} className="w-full absolute top-0 left-0 -z-20" alt="" />
+                <Image src={'/images/bgs/bgStar.png'} width={200} height={100} className="w-full absolute top-0 left-0 -z-10" alt="" />
+                <div className="container py-6">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <Image src={'/images/uixplore-logo.svg'} width={200} height={100} alt="" />
+                        </div>
+                        <div>
+                            <Button>Main</Button>
+                        </div>
+                    </div>
+                </div>
+            </header>
 
 
 

@@ -1,3 +1,4 @@
+import Footer from "@/components/common/footer/footer";
 import Header from "@/components/common/header/header";
 
 export default function WebLayout({ children }: { children: React.ReactNode }) {
@@ -5,7 +6,7 @@ export default function WebLayout({ children }: { children: React.ReactNode }) {
         <div className="web-layout">
             <Header/>
             {children}
-             
+             <Footer/>
         </div>
     );
 }
