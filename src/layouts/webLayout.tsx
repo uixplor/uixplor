@@ -4,10 +4,11 @@ import Header from "@/components/common/header/header";
 export default function WebLayout({ children }: { children: React.ReactNode }) {
     return (
         <div className="web-layout">
-            <Header/>
+            <Header />
             {children}
-             <Footer/>
+            <Footer />
         </div>
     );
 }
 
+9
