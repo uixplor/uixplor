@@ -53,8 +53,8 @@ export default function Header() {
 
             <header>
                 <div className={`${styles['svg-bg']} position-absolute -z-10 absolute top-[-40%] left-1/2 -translate-x-1/2 w-full h-[700px] bg-linear-to-b from-[#CC97F4] via-[#722BFF] to-transparent blur-[160px] opacity-70 pointer-events-none`} />
-                <Image src={'/images/bgs/UIXPLOOR.svg'} width={200} height={100} className="w-full absolute top-0 left-0 -z-20" alt="" />
-                <Image src={'/images/bgs/bgStar.png'} width={200} height={100} className="w-full absolute top-0 left-0 -z-10" alt="" />
+                <Image src={'/images/bgs/UIXPLOOR.svg'} width={200} height={100} className="w-full absolute top-0 left-0 -z-9" alt="" />
+
                 <div className="container py-6">
                     <div className="flex items-center justify-between">
                         <div>
