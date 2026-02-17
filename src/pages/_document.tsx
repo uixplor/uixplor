@@ -5,7 +5,7 @@ export default function Document() {
     return (
         <Html lang="en">
             <Head>
-                <meta name="description" content="Discover UiXplore - your ultimate resource for premade code snippets, expertly designed UI elements, and ready-to-use components. Simplify your development process and build stunning web applications with our curated library tailored for developers and designers alike." />
+                <meta name="description" content="Discover UiXplor - your ultimate resource for premade code snippets, expertly designed UI elements, and ready-to-use components. Simplify your development process and build stunning web applications with our curated library tailored for developers and designers alike." />
             </Head>
             <body>
                 <Main />

@@ -8,7 +8,7 @@ export default function Index() {
     return (
         <>
             <Head>
-                <title>UiXplore</title>
+                <title>UiXplor</title>
             </Head>
             <Home />
 

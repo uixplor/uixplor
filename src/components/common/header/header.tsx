@@ -60,6 +60,7 @@ export default function Header() {
 
                 <div
                     className="w-full absolute top-0 left-0 -z-9"
+                    
                 >
                     <Image src={'/images/bgs/UIXPLOOR.svg'} width={200} height={100} className="w-full" alt="" />
                 </div>
@@ -88,7 +89,7 @@ export default function Header() {
                                             visible: {
                                                 pathLength: 1,
                                                 opacity: 1,
-                                                transition: { duration: 1.5, ease: "easeInOut" }
+                                                transition: { duration: 0.6, ease: "easeInOut" }
                                             }
                                         }}
                                     />
@@ -103,7 +104,7 @@ export default function Header() {
                                             visible: {
                                                 pathLength: 1,
                                                 opacity: 1,
-                                                transition: { duration: 0.8, delay: 0.3, ease: "easeInOut" }
+                                                transition: { duration: 0.3, delay: 0.1, ease: "easeInOut" }
                                             }
                                         }}
                                     />
@@ -118,7 +119,7 @@ export default function Header() {
                                             visible: {
                                                 pathLength: 1,
                                                 opacity: 1,
-                                                transition: { duration: 1.2, delay: 0.6, ease: "easeInOut" }
+                                                transition: { duration: 0.5, delay: 0.2, ease: "easeInOut" }
                                             }
                                         }}
                                     />
@@ -133,7 +134,7 @@ export default function Header() {
                                             visible: {
                                                 pathLength: 1,
                                                 opacity: 1,
-                                                transition: { duration: 1, delay: 0.9, ease: "easeInOut" }
+                                                transition: { duration: 0.4, delay: 0.3, ease: "easeInOut" }
                                             }
                                         }}
                                     />
@@ -148,7 +149,7 @@ export default function Header() {
                                             visible: {
                                                 pathLength: 1,
                                                 opacity: 1,
-                                                transition: { duration: 0.9, delay: 1.2, ease: "easeInOut" }
+                                                transition: { duration: 0.4, delay: 0.4, ease: "easeInOut" }
                                             }
                                         }}
                                     />
@@ -163,7 +164,7 @@ export default function Header() {
                                             visible: {
                                                 pathLength: 1,
                                                 opacity: 1,
-                                                transition: { duration: 1.5, delay: 1.5, ease: "easeInOut" }
+                                                transition: { duration: 0.6, delay: 0.5, ease: "easeInOut" }
                                             }
                                         }}
                                     />
@@ -178,7 +179,7 @@ export default function Header() {
                                             visible: {
                                                 pathLength: 1,
                                                 opacity: 1,
-                                                transition: { duration: 1.2, delay: 2, ease: "easeInOut" }
+                                                transition: { duration: 0.5, delay: 0.6, ease: "easeInOut" }
                                             }
                                         }}
                                     />
