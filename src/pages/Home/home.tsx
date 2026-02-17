@@ -16,25 +16,40 @@ export default function Home() {
 			<main className="main-border-around">
 				{/* Hero Section */}
 				<div className="container px-4 sm:px-6 py-12 sm:py-16 lg:py-20 text-center justify-center relative">
-					<h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold gloock-regular text-white leading-tight">
+					<motion.h1
+						className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold gloock-regular text-white leading-tight"
+						initial={{ opacity: 0, y: 30 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.8, ease: "easeOut" }}
+					>
 						The Largest Library of <br className="hidden sm:block" />
 						<span className="sm:hidden">Open-Source UI</span>
 						<span className="hidden sm:inline">Open-Source UI</span>
-					</h1>
-					<p className="text-center mt-4 sm:mt-6 text-base sm:text-lg text-white/70 max-w-2xl mx-auto px-4">
+					</motion.h1>
+					<motion.p
+						className="text-center mt-4 sm:mt-6 text-base sm:text-lg text-white/70 max-w-2xl mx-auto px-4"
+						initial={{ opacity: 0, y: 20 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+					>
 						Community-built library of UI elements. <br className="hidden sm:block" />
 						<span className="sm:hidden">Copy as HTML/CSS, Tailwind, React and Figma.</span>
 						<span className="hidden sm:inline">Copy as HTML/CSS, Tailwind, React and Figma.</span>
-					</p>
+					</motion.p>
 
-					<div className="flex justify-center mt-6 sm:mt-8">
+					<motion.div
+						className="flex justify-center mt-6 sm:mt-8"
+						initial={{ opacity: 0, y: 20 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+					>
 						<Link href="/collections">
 							<AnimatedButton>
 								<RocketIcon className="mr-2 w-4 h-4 sm:w-5 sm:h-5" />
 								<span className="text-sm sm:text-base">Browse all collections</span>
 							</AnimatedButton>
 						</Link>
-					</div>
+					</motion.div>
 				</div>
 				<Image
 					src="/images/bgs/bgStar.png"
