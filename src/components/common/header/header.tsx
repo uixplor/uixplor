@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './header.module.css';
 import { Button } from '@/components/ui/button';
 import { motion } from 'motion/react';
@@ -189,7 +190,10 @@ export default function Header() {
                                 </defs>
                             </motion.svg>
                         </div>
-                        <div>
+                        <div className="flex items-center gap-4">
+                            <Link href="/collections" className="text-white hover:text-[#B8FB3C] transition-colors font-semibold">
+                                Collections
+                            </Link>
                             <Button>Main</Button>
                         </div>
                     </div>

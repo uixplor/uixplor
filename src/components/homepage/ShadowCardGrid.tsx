@@ -15,45 +15,31 @@ export default function ShadowCardGrid() {
   };
 
   return (
-    <div className="container py-28">
-      <motion.div
-        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4"
-        initial="hidden"
-        animate="visible"
-        variants={{
-          hidden: { opacity: 0 },
-          visible: {
-            opacity: 1,
-            transition: {
-              staggerChildren: 0.08,
-              delayChildren: 0.2
-            }
-          }
-        }}
-      >
+    <div className="container px-18 py-28 bg-[#ffffff] rounded-2xl">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8">
         {shadows.map((shadow, index) => (
           <motion.div
             key={shadow.id}
             onClick={() => handleCopy(shadow.code, shadow.id)}
-            className="shadow-card w-full aspect-square bg-black/40 backdrop-blur-sm border border-white/10 rounded-2xl flex flex-col items-center justify-center text-white cursor-pointer relative overflow-hidden"
+            className="shadow-card w-full max-w-[200px] h-[130px] mx-auto bg-white backdrop-blur-sm border border-gray-200 rounded-2xl flex flex-col items-center justify-center text-gray-800 cursor-pointer relative overflow-hidden"
             style={{ boxShadow: shadow.code }}
-            variants={{
-              hidden: {
-                opacity: 0,
-                y: 30,
-                scale: 0.9
-              },
-              visible: {
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                transition: {
-                  type: "spring",
-                  stiffness: 100,
-                  damping: 12
-                }
+            initial={{
+              opacity: 0,
+              y: 30,
+              scale: 0.9
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              transition: {
+                type: "spring",
+                stiffness: 200,
+                damping: 15,
+                delay: index * 0.03
               }
             }}
+            viewport={{ once: true, amount: 0.3 }}
             whileHover={{
               scale: 1.05,
               rotate: [0, -1, 1, 0],
@@ -69,7 +55,7 @@ export default function ShadowCardGrid() {
           >
             {/* Shimmer effect on hover */}
             <motion.div
-              className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent"
+              className="absolute inset-0 bg-linear-to-r from-transparent bg-white to-transparent"
               initial={{ x: '-100%' }}
               whileHover={{
                 x: '100%',
@@ -93,7 +79,7 @@ export default function ShadowCardGrid() {
             )}
           </motion.div>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 }
