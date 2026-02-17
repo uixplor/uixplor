@@ -47,35 +47,47 @@ export default function Home() {
 						{[
 							{
 								title: 'Box Shadows',
-								icon: '📦',
 								count: 93,
 								href: '/collections/box-shadows',
-								gradient: 'from-purple-500 via-pink-500 to-purple-600',
-								comingSoon: false
+								comingSoon: false,
+								icon: (
+									<svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+									</svg>
+								)
 							},
 							{
 								title: 'Buttons',
-								icon: '🎨',
 								count: 92,
 								href: '/collections/buttons',
-								gradient: 'from-blue-500 via-cyan-500 to-blue-600',
-								comingSoon: false
+								comingSoon: false,
+								icon: (
+									<svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+									</svg>
+								)
 							},
 							{
 								title: 'Cards',
-								icon: '🃏',
 								count: 0,
 								href: '/collections/cards',
-								gradient: 'from-green-500 via-emerald-500 to-green-600',
-								comingSoon: true
+								comingSoon: true,
+								icon: (
+									<svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+									</svg>
+								)
 							},
 							{
 								title: 'Text Animations',
-								icon: '✨',
 								count: 0,
 								href: '/collections/text-animations',
-								gradient: 'from-orange-500 via-red-500 to-orange-600',
-								comingSoon: true
+								comingSoon: true,
+								icon: (
+									<svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+									</svg>
+								)
 							}
 						].map((collection, index) => (
 							<motion.div
@@ -86,28 +98,27 @@ export default function Home() {
 								transition={{ duration: 0.5, delay: index * 0.1 }}
 							>
 								<Link href={collection.href}>
-									<div className="relative group h-48 rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-2xl border border-white/10">
-										{/* Solid vibrant gradient background */}
-										<div className={`absolute inset-0 bg-gradient-to-br ${collection.gradient}`} />
-
+									<div className="relative group h-48 rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-2xl bg-black/60 backdrop-blur-md border border-white/30 hover:border-[#B8FB3C]/50">
 										<div className="relative h-full p-6 flex flex-col justify-between text-white">
 											<div>
-												<div className="text-4xl mb-2">{collection.icon}</div>
-												<h3 className="text-xl font-bold mb-1 drop-shadow-lg">{collection.title}</h3>
+												<div className="text-[#B8FB3C] mb-3 group-hover:-translate-y-1 transition-transform duration-300">
+													{collection.icon}
+												</div>
+												<h3 className="text-xl font-bold mb-1">{collection.title}</h3>
 											</div>
 
 											<div className="flex items-center justify-between">
 												{collection.comingSoon ? (
-													<span className="text-xs font-semibold bg-white/30 px-3 py-1 rounded-full backdrop-blur-md border border-white/20">
+													<span className="text-xs font-semibold bg-white/10 px-3 py-1 rounded-full backdrop-blur-md border border-white/10">
 														Coming Soon
 													</span>
 												) : (
-													<span className="text-xs font-semibold bg-white/30 px-3 py-1 rounded-full backdrop-blur-md border border-white/20">
+													<span className="text-xs font-semibold bg-[#B8FB3C]/20 px-3 py-1 rounded-full backdrop-blur-md border border-[#B8FB3C]/30 text-[#B8FB3C]">
 														{collection.count} items
 													</span>
 												)}
 
-												<span className="text-white/90 group-hover:text-white text-sm font-semibold drop-shadow-lg">
+												<span className="text-white/70 group-hover:text-[#B8FB3C] text-sm font-semibold transition-colors">
 													View →
 												</span>
 											</div>
@@ -123,7 +134,11 @@ export default function Home() {
 				<section className="container py-16">
 					<div className="flex items-center justify-between mb-8">
 						<div className="flex items-center gap-4">
-							<span className="text-5xl">📦</span>
+							<div className="text-[#B8FB3C]">
+								<svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+								</svg>
+							</div>
 							<div>
 								<h2 className="text-3xl sm:text-4xl font-bold text-white">Box Shadows</h2>
 								<p className="text-white/70 mt-1">Beautiful CSS box shadow examples</p>
@@ -171,7 +186,11 @@ export default function Home() {
 				<section className="container py-16">
 					<div className="flex items-center justify-between mb-8">
 						<div className="flex items-center gap-4">
-							<span className="text-5xl">🎨</span>
+							<div className="text-[#B8FB3C]">
+								<svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+								</svg>
+							</div>
 							<div>
 								<h2 className="text-3xl sm:text-4xl font-bold text-white">CSS Buttons</h2>
 								<p className="text-white/70 mt-1">Stunning button styles from top designers</p>
