@@ -5,7 +5,9 @@ export default function WebLayout({ children }: { children: React.ReactNode }) {
     return (
         <div className="web-layout">
             <Header />
-            {children}
+            <main className="pt-[72px]">
+                {children}
+            </main>
             <Footer />
         </div>
     );

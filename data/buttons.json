@@ -1,0 +1,122 @@
+[
+	{
+		"id": "btn-glass-soft",
+		"name": "Glass Soft",
+		"background": "rgba(255, 255, 255, 0.7)",
+		"shadow": "0 2px 8px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06)",
+		"hover": "background: rgba(255, 255, 255, 0.9); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 12px 32px rgba(0, 0, 0, 0.08); transform: translateY(-1px);",
+		"active": "transform: translateY(0); box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);"
+	},
+	{
+		"id": "btn-neon-outline",
+		"name": "Neon Outline",
+		"background": "transparent",
+		"shadow": "inset 0 0 0 2px #B8FB3C, 0 0 12px rgba(184, 251, 60, 0.15)",
+		"hover": "background: rgba(184, 251, 60, 0.08); box-shadow: inset 0 0 0 2px #B8FB3C, 0 0 24px rgba(184, 251, 60, 0.25); transform: translateY(-1px);",
+		"active": "background: rgba(184, 251, 60, 0.12); transform: translateY(0);"
+	},
+	{
+		"id": "btn-gradient-pill",
+		"name": "Gradient Pill",
+		"background": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+		"shadow": "0 4px 14px rgba(102, 126, 234, 0.25), 0 1px 3px rgba(0, 0, 0, 0.08)",
+		"hover": "box-shadow: 0 6px 20px rgba(102, 126, 234, 0.35), 0 2px 6px rgba(0, 0, 0, 0.1); transform: translateY(-2px);",
+		"active": "transform: translateY(0); box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);"
+	},
+	{
+		"id": "btn-minimal-ghost",
+		"name": "Minimal Ghost",
+		"background": "transparent",
+		"shadow": "none",
+		"hover": "background: rgba(0, 0, 0, 0.04); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);",
+		"active": "background: rgba(0, 0, 0, 0.06);"
+	},
+	{
+		"id": "btn-raised-soft",
+		"name": "Raised Soft",
+		"background": "#ffffff",
+		"shadow": "0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.06)",
+		"hover": "box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05), 0 8px 24px rgba(0, 0, 0, 0.08); transform: translateY(-2px);",
+		"active": "transform: translateY(0); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);"
+	},
+	{
+		"id": "btn-ink-fill",
+		"name": "Ink Fill",
+		"background": "#1a1a2e",
+		"shadow": "0 2px 8px rgba(26, 26, 46, 0.2), 0 8px 24px rgba(26, 26, 46, 0.15)",
+		"hover": "background: #16213e; box-shadow: 0 4px 12px rgba(26, 26, 46, 0.25), 0 12px 32px rgba(26, 26, 46, 0.2); transform: translateY(-1px);",
+		"active": "background: #0f3460; transform: translateY(0);"
+	},
+	{
+		"id": "btn-frosted-glass",
+		"name": "Frosted Glass",
+		"background": "rgba(255, 255, 255, 0.25)",
+		"shadow": "0 4px 16px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(255, 255, 255, 0.3)",
+		"hover": "background: rgba(255, 255, 255, 0.4); box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06), inset 0 0 0 1px rgba(255, 255, 255, 0.5); backdrop-filter: blur(12px);",
+		"active": "background: rgba(255, 255, 255, 0.5); transform: scale(0.98);"
+	},
+	{
+		"id": "btn-warm-coral",
+		"name": "Warm Coral",
+		"background": "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+		"shadow": "0 4px 14px rgba(245, 87, 108, 0.3), 0 1px 4px rgba(0, 0, 0, 0.06)",
+		"hover": "box-shadow: 0 6px 20px rgba(245, 87, 108, 0.4), 0 2px 6px rgba(0, 0, 0, 0.08); transform: translateY(-2px);",
+		"active": "transform: translateY(0); box-shadow: 0 2px 8px rgba(245, 87, 108, 0.2);"
+	},
+	{
+		"id": "btn-ocean-depth",
+		"name": "Ocean Depth",
+		"background": "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
+		"shadow": "0 4px 14px rgba(67, 233, 123, 0.25), 0 1px 4px rgba(0, 0, 0, 0.06)",
+		"hover": "box-shadow: 0 6px 20px rgba(67, 233, 123, 0.35), 0 2px 6px rgba(0, 0, 0, 0.08); transform: translateY(-2px);",
+		"active": "transform: translateY(0); box-shadow: 0 2px 8px rgba(67, 233, 123, 0.2);"
+	},
+	{
+		"id": "btn-neu-raised",
+		"name": "Neumorphic Raised",
+		"background": "#f0f0f3",
+		"shadow": "4px 4px 10px rgba(0, 0, 0, 0.08), -4px -4px 10px rgba(255, 255, 255, 0.9)",
+		"hover": "box-shadow: 6px 6px 14px rgba(0, 0, 0, 0.1), -6px -6px 14px rgba(255, 255, 255, 0.95); transform: translateY(-1px);",
+		"active": "box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.06), inset -3px -3px 6px rgba(255, 255, 255, 0.8); transform: translateY(0);"
+	},
+	{
+		"id": "btn-border-slide",
+		"name": "Border Slide",
+		"background": "#ffffff",
+		"shadow": "inset 0 0 0 2px #1a1a2e",
+		"hover": "background: #1a1a2e; color: #ffffff; box-shadow: inset 0 0 0 2px #1a1a2e, 0 4px 12px rgba(26, 26, 46, 0.2);",
+		"active": "transform: scale(0.98);"
+	},
+	{
+		"id": "btn-sunset-glow",
+		"name": "Sunset Glow",
+		"background": "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+		"shadow": "0 4px 14px rgba(250, 112, 154, 0.3), 0 1px 4px rgba(0, 0, 0, 0.06)",
+		"hover": "box-shadow: 0 6px 24px rgba(250, 112, 154, 0.4), 0 2px 8px rgba(0, 0, 0, 0.08); transform: translateY(-2px);",
+		"active": "transform: translateY(0); box-shadow: 0 2px 8px rgba(250, 112, 154, 0.2);"
+	},
+	{
+		"id": "btn-midnight-solid",
+		"name": "Midnight Solid",
+		"background": "#0c0c1d",
+		"shadow": "0 2px 6px rgba(12, 12, 29, 0.2), 0 6px 20px rgba(12, 12, 29, 0.15)",
+		"hover": "box-shadow: 0 4px 10px rgba(12, 12, 29, 0.25), 0 10px 28px rgba(12, 12, 29, 0.2); transform: translateY(-1px);",
+		"active": "transform: translateY(0); background: #1a1a3e;"
+	},
+	{
+		"id": "btn-muted-sage",
+		"name": "Muted Sage",
+		"background": "#e8efe5",
+		"shadow": "0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.04)",
+		"hover": "background: #dde8d8; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.06); transform: translateY(-1px);",
+		"active": "background: #d4e0cf; transform: translateY(0);"
+	},
+	{
+		"id": "btn-electric-blue",
+		"name": "Electric Blue",
+		"background": "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+		"shadow": "0 4px 14px rgba(79, 172, 254, 0.3), 0 1px 4px rgba(0, 0, 0, 0.06)",
+		"hover": "box-shadow: 0 6px 20px rgba(79, 172, 254, 0.4), 0 2px 6px rgba(0, 0, 0, 0.08); transform: translateY(-2px);",
+		"active": "transform: translateY(0); box-shadow: 0 2px 8px rgba(79, 172, 254, 0.2);"
+	}
+]

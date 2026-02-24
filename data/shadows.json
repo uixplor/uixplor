@@ -1,0 +1,200 @@
+[
+	{
+		"id": "shadow-xs",
+		"name": "Extra Small",
+		"css": "box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02);",
+		"category": "token"
+	},
+	{
+		"id": "shadow-sm",
+		"name": "Small",
+		"css": "box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.03);",
+		"category": "token"
+	},
+	{
+		"id": "shadow-md",
+		"name": "Medium",
+		"css": "box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04), 0 6px 20px rgba(0, 0, 0, 0.05);",
+		"category": "token"
+	},
+	{
+		"id": "shadow-lg",
+		"name": "Large",
+		"css": "box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04), 0 12px 40px rgba(0, 0, 0, 0.06);",
+		"category": "token"
+	},
+	{
+		"id": "shadow-xl",
+		"name": "Extra Large",
+		"css": "box-shadow: 0 8px 18px rgba(0, 0, 0, 0.04), 0 20px 60px rgba(0, 0, 0, 0.08);",
+		"category": "token"
+	},
+	{
+		"id": "shadow-glow-soft",
+		"name": "Soft Glow",
+		"css": "box-shadow: 0 0 20px rgba(0, 0, 0, 0.03), 0 0 60px rgba(0, 0, 0, 0.02);",
+		"category": "token"
+	},
+	{
+		"id": "shadow-inset-soft",
+		"name": "Inset Soft",
+		"css": "box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(0, 0, 0, 0.02);",
+		"category": "token"
+	},
+	{
+		"id": "soft-cloud-1",
+		"name": "Cloud Lift",
+		"css": "box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02), 0 4px 16px rgba(0, 0, 0, 0.04);",
+		"category": "soft"
+	},
+	{
+		"id": "soft-cloud-2",
+		"name": "Mist Rise",
+		"css": "box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03), 0 10px 32px rgba(0, 0, 0, 0.05);",
+		"category": "soft"
+	},
+	{
+		"id": "soft-cloud-3",
+		"name": "Feather Float",
+		"css": "box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02), 0 3px 10px rgba(0, 0, 0, 0.03), 0 8px 28px rgba(0, 0, 0, 0.04);",
+		"category": "soft"
+	},
+	{
+		"id": "soft-cloud-4",
+		"name": "Silk Drape",
+		"css": "box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02), 0 6px 18px rgba(0, 0, 0, 0.04), 0 16px 48px rgba(0, 0, 0, 0.03);",
+		"category": "soft"
+	},
+	{
+		"id": "soft-cloud-5",
+		"name": "Petal Whisper",
+		"css": "box-shadow: 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 14px rgba(0, 0, 0, 0.06);",
+		"category": "soft"
+	},
+	{
+		"id": "layered-depth-1",
+		"name": "Stacked Glass",
+		"css": "box-shadow: 0 1px 1px rgba(0, 0, 0, 0.02), 0 2px 4px rgba(0, 0, 0, 0.02), 0 4px 8px rgba(0, 0, 0, 0.03), 0 8px 16px rgba(0, 0, 0, 0.03);",
+		"category": "layered"
+	},
+	{
+		"id": "layered-depth-2",
+		"name": "Cascading Veil",
+		"css": "box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02), 0 2px 6px rgba(0, 0, 0, 0.02), 0 6px 16px rgba(0, 0, 0, 0.03), 0 12px 32px rgba(0, 0, 0, 0.04);",
+		"category": "layered"
+	},
+	{
+		"id": "layered-depth-3",
+		"name": "Frosted Layers",
+		"css": "box-shadow: 0 0 2px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.03), 0 6px 12px rgba(0, 0, 0, 0.04), 0 16px 40px rgba(0, 0, 0, 0.05);",
+		"category": "layered"
+	},
+	{
+		"id": "layered-depth-4",
+		"name": "Prism Fold",
+		"css": "box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 4px 12px rgba(0, 0, 0, 0.04), 0 12px 36px rgba(0, 0, 0, 0.05), 0 24px 64px rgba(0, 0, 0, 0.03);",
+		"category": "layered"
+	},
+	{
+		"id": "layered-depth-5",
+		"name": "Velvet Stack",
+		"css": "box-shadow: 0 0 1px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.03), 0 4px 10px rgba(0, 0, 0, 0.04), 0 10px 24px rgba(0, 0, 0, 0.05);",
+		"category": "layered"
+	},
+	{
+		"id": "deep-elevation-1",
+		"name": "Canyon Drop",
+		"css": "box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05), 0 20px 56px rgba(0, 0, 0, 0.08);",
+		"category": "deep"
+	},
+	{
+		"id": "deep-elevation-2",
+		"name": "Abyss Float",
+		"css": "box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06), 0 32px 80px rgba(0, 0, 0, 0.1);",
+		"category": "deep"
+	},
+	{
+		"id": "deep-elevation-3",
+		"name": "Horizon Drift",
+		"css": "box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04), 0 24px 64px rgba(0, 0, 0, 0.07), 0 40px 100px rgba(0, 0, 0, 0.04);",
+		"category": "deep"
+	},
+	{
+		"id": "deep-elevation-4",
+		"name": "Summit Glow",
+		"css": "box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03), 0 12px 28px rgba(0, 0, 0, 0.06), 0 28px 72px rgba(0, 0, 0, 0.08);",
+		"category": "deep"
+	},
+	{
+		"id": "neu-soft-1",
+		"name": "Clay Press",
+		"css": "box-shadow: 6px 6px 16px rgba(0, 0, 0, 0.06), -6px -6px 16px rgba(255, 255, 255, 0.8);",
+		"category": "neumorphic"
+	},
+	{
+		"id": "neu-soft-2",
+		"name": "Dough Push",
+		"css": "box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.05), -4px -4px 12px rgba(255, 255, 255, 0.9);",
+		"category": "neumorphic"
+	},
+	{
+		"id": "neu-soft-3",
+		"name": "Marble Indent",
+		"css": "box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.07), -8px -8px 20px rgba(255, 255, 255, 0.7);",
+		"category": "neumorphic"
+	},
+	{
+		"id": "neu-soft-4",
+		"name": "Paper Emboss",
+		"css": "box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.04), -3px -3px 8px rgba(255, 255, 255, 0.95);",
+		"category": "neumorphic"
+	},
+	{
+		"id": "glow-soft-1",
+		"name": "Moonlit Ring",
+		"css": "box-shadow: 0 0 16px rgba(0, 0, 0, 0.03), 0 0 48px rgba(0, 0, 0, 0.02), 0 4px 12px rgba(0, 0, 0, 0.04);",
+		"category": "glow"
+	},
+	{
+		"id": "glow-soft-2",
+		"name": "Halo Bloom",
+		"css": "box-shadow: 0 0 8px rgba(0, 0, 0, 0.02), 0 0 32px rgba(0, 0, 0, 0.03), 0 0 64px rgba(0, 0, 0, 0.01);",
+		"category": "glow"
+	},
+	{
+		"id": "glow-soft-3",
+		"name": "Aurora Veil",
+		"css": "box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03), 0 0 40px rgba(100, 120, 200, 0.04), 0 0 80px rgba(100, 120, 200, 0.02);",
+		"category": "glow"
+	},
+	{
+		"id": "glow-soft-4",
+		"name": "Polar Gleam",
+		"css": "box-shadow: 0 0 12px rgba(0, 0, 0, 0.02), 0 4px 20px rgba(0, 0, 0, 0.04), 0 0 56px rgba(80, 100, 180, 0.03);",
+		"category": "glow"
+	},
+	{
+		"id": "inset-soft-1",
+		"name": "Carved Basin",
+		"css": "box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.04), inset 0 1px 2px rgba(0, 0, 0, 0.06);",
+		"category": "inset"
+	},
+	{
+		"id": "inset-soft-2",
+		"name": "Pressed Linen",
+		"css": "box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.03), inset 0 4px 16px rgba(0, 0, 0, 0.04);",
+		"category": "inset"
+	},
+	{
+		"id": "inset-soft-3",
+		"name": "Sunken Silk",
+		"css": "box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(0, 0, 0, 0.03);",
+		"category": "inset"
+	},
+	{
+		"id": "inset-soft-4",
+		"name": "Inner Glow",
+		"css": "box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.03), inset 0 2px 4px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);",
+		"category": "inset"
+	}
+]
