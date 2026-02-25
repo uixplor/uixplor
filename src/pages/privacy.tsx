@@ -1,6 +1,7 @@
 import PageSEO from '@/components/seo/PageSEO';
 import Link from 'next/link';
 import { motion } from 'motion/react';
+import PageBackground from '@/components/ui/PageBackground';
 
 const fadeUp = (delay = 0) => ({
 	initial: { opacity: 0, y: 20 },
@@ -30,8 +31,9 @@ export default function Privacy() {
 				path="/privacy"
 			/>
 
-			<main className="min-h-screen px-4 sm:px-6 py-16 sm:py-24">
-				<div className="max-w-3xl mx-auto">
+			<main className="min-h-screen px-4 sm:px-6 py-16 sm:py-24 relative">
+				<PageBackground />
+				<div className="max-w-3xl mx-auto relative z-10">
 
 					{/* Header */}
 					<motion.div className="mb-14" {...fadeUp()}>

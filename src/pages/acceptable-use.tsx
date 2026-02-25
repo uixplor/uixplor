@@ -1,6 +1,7 @@
 import PageSEO from '@/components/seo/PageSEO';
 import Link from 'next/link';
 import { motion } from 'motion/react';
+import PageBackground from '@/components/ui/PageBackground';
 
 const fadeUp = (delay = 0) => ({
 	initial: { opacity: 0, y: 20 },
@@ -22,14 +23,14 @@ const Section = ({ title, children }: { title: string; children: React.ReactNode
 );
 
 const prohibited = [
-	{ icon: '🤖', title: 'Automated Scraping', desc: 'Using bots, crawlers, or automated scripts to mass-download content, images, or code snippets from UIXplor without prior written consent.' },
-	{ icon: '🔓', title: 'Unauthorized Access', desc: 'Attempting to access restricted areas, bypass security controls, or probe the site for vulnerabilities.' },
-	{ icon: '📋', title: 'Content Cloning', desc: 'Reproducing UIXplor\'s collections, blog content, or overall design to create a competing service.' },
-	{ icon: '💣', title: 'Malicious Code', desc: 'Attempting to inject malware, XSS payloads, or any other malicious code into the site or its users.' },
-	{ icon: '📧', title: 'Spam & Phishing', desc: 'Using UIXplor as a platform or vector for spam, phishing, or fraudulent communications.' },
-	{ icon: '⚡', title: 'Denial of Service', desc: 'Flooding the site with excessive requests intended to degrade performance or cause outages.' },
-	{ icon: '🎭', title: 'Impersonation', desc: 'Impersonating UIXplor, its team, or other users in any context.' },
-	{ icon: '📜', title: 'IP Violation', desc: 'Removing copyright notices, misrepresenting ownership of UIXplor content, or violating our intellectual property rights.' },
+	{ icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>, title: 'Automated Scraping', desc: 'Using bots, crawlers, or automated scripts to mass-download content, images, or code snippets from UIXplor without prior written consent.' },
+	{ icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" /></svg>, title: 'Unauthorized Access', desc: 'Attempting to access restricted areas, bypass security controls, or probe the site for vulnerabilities.' },
+	{ icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>, title: 'Content Cloning', desc: 'Reproducing UIXplor\'s collections, blog content, or overall design to create a competing service.' },
+	{ icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" /></svg>, title: 'Malicious Code', desc: 'Attempting to inject malware, XSS payloads, or any other malicious code into the site or its users.' },
+	{ icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>, title: 'Spam & Phishing', desc: 'Using UIXplor as a platform or vector for spam, phishing, or fraudulent communications.' },
+	{ icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>, title: 'Denial of Service', desc: 'Flooding the site with excessive requests intended to degrade performance or cause outages.' },
+	{ icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>, title: 'Impersonation', desc: 'Impersonating UIXplor, its team, or other users in any context.' },
+	{ icon: <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>, title: 'IP Violation', desc: 'Removing copyright notices, misrepresenting ownership of UIXplor content, or violating our intellectual property rights.' },
 ];
 
 export default function AcceptableUse() {
@@ -41,8 +42,9 @@ export default function AcceptableUse() {
 				path="/acceptable-use"
 			/>
 
-			<main className="min-h-screen px-4 sm:px-6 py-16 sm:py-24">
-				<div className="max-w-3xl mx-auto">
+			<main className="min-h-screen px-4 sm:px-6 py-16 sm:py-24 relative">
+				<PageBackground />
+				<div className="max-w-3xl mx-auto relative z-10">
 
 					{/* Header */}
 					<motion.div className="mb-14" {...fadeUp()}>
@@ -80,7 +82,7 @@ export default function AcceptableUse() {
 						<div className="mt-4 space-y-3">
 							{prohibited.map(p => (
 								<div key={p.title} className="flex items-start gap-4 p-4 rounded-xl bg-red-500/5 border border-red-500/10">
-									<span className="text-xl shrink-0">{p.icon}</span>
+									<span className="shrink-0 mt-0.5 text-red-400">{p.icon}</span>
 									<div>
 										<p className="text-sm font-semibold text-white/80 mb-0.5">{p.title}</p>
 										<p className="text-xs text-white/45">{p.desc}</p>

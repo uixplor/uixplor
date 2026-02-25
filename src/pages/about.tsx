@@ -1,6 +1,7 @@
 import PageSEO from '@/components/seo/PageSEO';
 import Link from 'next/link';
 import { motion } from 'motion/react';
+import PageBackground from '@/components/ui/PageBackground';
 
 const fadeUp = (delay: number = 0) => ({
 	initial: { opacity: 0, y: 20 },
@@ -31,7 +32,8 @@ export default function About() {
 				}}
 			/>
 
-			<main className="min-h-screen">
+			<main className="min-h-screen relative">
+				<PageBackground />
 				{/* Hero */}
 				<section className="pt-16 sm:pt-24 lg:pt-32 pb-16 sm:pb-20 text-center px-4 sm:px-6">
 					<motion.div {...fadeUp()}>

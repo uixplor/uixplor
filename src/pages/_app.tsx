@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AppProps } from "next/app";
+import { useEffect } from 'react';
 // import localFont from "next/font/local";
 import { geistMono, poppins } from "../utils/fonts";
 import '@/styles/globals.css';
@@ -11,6 +12,12 @@ export const metadata: Metadata = {
 };
 
 export default function MyApp({ Component, pageProps }: AppProps) {
+    useEffect(() => {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').catch(() => { });
+        }
+    }, []);
+
     return (
         <div className={`${poppins.className} ${geistMono.variable} antialiased`}>
             <WebLayout>

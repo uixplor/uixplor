@@ -46,14 +46,23 @@ export default function Header() {
         };
     }, [menuOpen]);
 
-    const headerBg = scrolled
-        ? 'bg-[#0a0a0f]/95 backdrop-blur-md shadow-[0_1px_3px_rgba(0,0,0,0.3)]'
-        : 'bg-transparent';
-
     return (
         <>
             <header
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${headerBg}`}
+                className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]"
+                style={{
+                    background: scrolled
+                        ? 'rgba(10,10,15,0.85)'
+                        : 'rgba(10,10,15,0.55)',
+                    backdropFilter: 'blur(20px) saturate(160%)',
+                    WebkitBackdropFilter: 'blur(20px) saturate(160%)',
+                    borderBottom: scrolled
+                        ? '1px solid rgba(184,251,60,0.18)'
+                        : '1px solid rgba(255,255,255,0.06)',
+                    boxShadow: scrolled
+                        ? '0 4px 32px rgba(0,0,0,0.35), 0 1px 0 rgba(184,251,60,0.08)'
+                        : '0 1px 0 rgba(255,255,255,0.04)',
+                }}
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-[72px]">

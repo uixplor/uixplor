@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { GetStaticProps } from 'next';
 import blogData from '../../../data/blog.json';
+import PageBackground from '@/components/ui/PageBackground';
 
 type Post = {
 	slug: string;
@@ -75,8 +76,9 @@ export default function BlogIndex({ posts, allTags }: { posts: Post[]; allTags: 
 				]}
 			/>
 
-			<main className="min-h-screen px-4 sm:px-6 py-8 sm:py-12">
-				<div className="max-w-6xl mx-auto">
+			<main className="min-h-screen px-4 sm:px-6 py-8 sm:py-12 relative">
+				<PageBackground />
+				<div className="max-w-6xl mx-auto relative z-10">
 
 					{/* Breadcrumbs */}
 					<nav className="mb-8">

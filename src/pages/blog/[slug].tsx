@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import blog from '../../../data/blog.json';
+import PageBackground from '@/components/ui/PageBackground';
 
 
 type Section = { heading: string; level: number; body: string };
@@ -117,8 +118,9 @@ export default function BlogPost({ post, nextPost, relatedPosts }: Props) {
 				jsonLd={articleJsonLd}
 			/>
 
-			<main className="min-h-screen px-4 sm:px-6 py-8 sm:py-12">
-				<div className="max-w-6xl mx-auto">
+			<main className="min-h-screen px-4 sm:px-6 py-8 sm:py-12 relative">
+				<PageBackground />
+				<div className="max-w-6xl mx-auto relative z-10">
 					{/* Breadcrumbs */}
 					<nav className="mb-10">
 						<ol className="flex items-center gap-2 text-sm text-white/40">
