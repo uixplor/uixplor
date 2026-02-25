@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import buttons from '../../../data/buttons.json';
 import CodeViewerOverlay, { type CodeSection } from '@/components/ui/CodeViewerOverlay';
-import { GlowGrid, GlowCard } from '@/components/ui/GlowGrid';
 
 /** Extract a single CSS property value from a full CSS block */
 function extractCssProp(css: string, prop: string): string {
@@ -161,8 +160,7 @@ export default function Buttons() {
 						</span>
 					</motion.div>
 
-					{/* Button Grid with mouse glow */}
-					<GlowGrid className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
 						{buttons.map((btn, index) => {
 							const preview = ButtonPreview({ css: btn.css });
 							const isLight = preview.isLight;
@@ -174,13 +172,10 @@ export default function Buttons() {
 									viewport={{ once: true }}
 									transition={{ duration: 0.4, delay: index * 0.03 }}
 								>
-									<GlowCard
-										className={`rounded-2xl overflow-hidden h-full transition-all duration-300 border ${isLight
-											? 'bg-white border-gray-200/60 hover:border-gray-300'
-											: 'bg-linear-to-b from-white/4 to-black/25 border-white/6 hover:border-white/12'
-											}`}
-										glowColor={isLight ? '#6366f1' : '#B8FB3C'}
-									>
+									<div className={`rounded-2xl overflow-hidden h-full transition-all duration-300 border ${isLight
+										? 'bg-white border-gray-200/60 hover:border-gray-300'
+										: 'bg-linear-to-b from-white/4 to-black/25 border-white/6 hover:border-white/12'
+										}`}>
 										{/* Button preview */}
 										<div className={`p-8 flex items-center justify-center h-32 sm:h-36 ${isLight ? 'bg-gray-50' : 'bg-white/2'}`}>
 											{preview.node}
@@ -198,18 +193,18 @@ export default function Buttons() {
 											<button
 												onClick={() => setSelectedBtn(btn)}
 												className={`relative z-10 shrink-0 px-3.5 py-1.5 rounded-lg text-[11px] font-semibold border transition-all duration-300 cursor-pointer hover:-translate-y-0.5 ${isLight
-													? 'bg-gray-100 text-gray-500 border-gray-200 hover:bg-purple-500 hover:text-white hover:border-purple-500 hover:shadow-[0_8px_20px_rgba(168,85,247,0.2)]'
-													: 'bg-white/6 text-white/50 border-white/8 hover:bg-purple-500 hover:text-white hover:border-purple-500 hover:shadow-[0_8px_20px_rgba(168,85,247,0.2)]'
+													? 'bg-gray-100 text-gray-500 border-gray-200 hover:bg-gray-200 hover:text-gray-700 hover:border-gray-300'
+													: 'bg-white/6 text-white/50 border-white/8 hover:bg-white/10 hover:text-white/80 hover:border-white/20'
 													}`}
 											>
 												View Code →
 											</button>
 										</div>
-									</GlowCard>
+									</div>
 								</motion.div>
 							);
 						})}
-					</GlowGrid>
+					</div>
 				</div>
 			</main>
 

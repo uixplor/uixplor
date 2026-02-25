@@ -350,7 +350,7 @@ export default function Home() {
 											</span>
 										</div>
 										<Link href="/collections/box-shadows">
-											<span className="relative z-10 shrink-0 px-3 py-1.5 rounded-lg text-[11px] font-semibold bg-white/6 text-white/50 border border-white/8 hover:bg-white hover:text-[#0a0a0f] hover:border-white hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(255,255,255,0.18)] transition-all duration-300 cursor-pointer">
+											<span className="relative z-10 shrink-0 px-3 py-1.5 rounded-lg text-[11px] font-semibold bg-white/6 text-white/50 border border-white/8 hover:bg-white/10 hover:text-white/80 hover:border-white/20 transition-all duration-300 cursor-pointer">
 												View →
 											</span>
 										</Link>
@@ -411,7 +411,7 @@ export default function Home() {
 										{btn.name}
 									</span>
 									<Link href="/collections/buttons">
-										<span className="relative z-10 shrink-0 px-3 py-1.5 rounded-lg text-[11px] font-semibold bg-white/6 text-white/50 border border-white/8 hover:bg-purple-500 hover:text-white hover:border-purple-500 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(168,85,247,0.2)] transition-all duration-300 cursor-pointer">
+										<span className="relative z-10 shrink-0 px-3 py-1.5 rounded-lg text-[11px] font-semibold bg-white/6 text-white/50 border border-white/8 hover:bg-white/10 hover:text-white/80 hover:border-white/20 transition-all duration-300 cursor-pointer">
 											View →
 										</span>
 									</Link>
@@ -465,7 +465,7 @@ export default function Home() {
 								</div>
 								<div className="px-4 py-3 flex items-center justify-between border-t border-white/6">
 									<span className="text-xs font-medium text-white/60">{item.name}</span>
-									<Link href="/collections/glass-effects"><span className="relative z-10 shrink-0 px-3 py-1.5 rounded-lg text-[11px] font-semibold bg-white/6 text-white/50 border border-white/8 hover:bg-sky-500 hover:text-white hover:border-sky-500 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer">View →</span></Link>
+									<Link href="/collections/glass-effects"><span className="relative z-10 shrink-0 px-3 py-1.5 rounded-lg text-[11px] font-semibold bg-white/6 text-white/50 border border-white/8 hover:bg-white/10 hover:text-white/80 hover:border-white/20 transition-all duration-300 cursor-pointer">View →</span></Link>
 								</div>
 							</motion.div>
 						))}
@@ -503,7 +503,7 @@ export default function Home() {
 								</div>
 								<div className="px-4 py-3 flex items-center justify-between border-t border-white/6">
 									<span className="text-xs font-medium text-white/60">{item.name}</span>
-									<Link href="/collections/hover-effects"><span className="relative z-10 shrink-0 px-3 py-1.5 rounded-lg text-[11px] font-semibold bg-white/6 text-white/50 border border-white/8 hover:bg-pink-500 hover:text-white hover:border-pink-500 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer">View →</span></Link>
+									<Link href="/collections/hover-effects"><span className="relative z-10 shrink-0 px-3 py-1.5 rounded-lg text-[11px] font-semibold bg-white/6 text-white/50 border border-white/8 hover:bg-white/10 hover:text-white/80 hover:border-white/20 transition-all duration-300 cursor-pointer">View →</span></Link>
 								</div>
 							</motion.div>
 						))}
