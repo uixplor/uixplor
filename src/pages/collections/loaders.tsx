@@ -89,6 +89,20 @@ export default function Loaders() {
 	const [sel, setSel] = useState<Item | null>(null);
 	return (
 		<>
+			{/* Keyframes for previews that reference custom animations */}
+			<style dangerouslySetInnerHTML={{
+				__html: `
+				@keyframes progress-slide {
+					0% { transform: translateX(-100%) scaleX(0.4); }
+					50% { transform: translateX(25%) scaleX(1); }
+					100% { transform: translateX(150%) scaleX(0.4); }
+				}
+				@keyframes circle-progress-preview {
+					0% { stroke-dashoffset: 113; }
+					50% { stroke-dashoffset: 30; }
+					100% { stroke-dashoffset: 113; }
+				}
+			` }} />
 			<PageSEO
 				title="CSS Loading Animations – Pure CSS Loaders & Spinners – UIXplor"
 				description="30+ CSS loading animations — spinners, skeleton screens, progress bars, dot loaders and more. Zero JavaScript, pure CSS. Copy any loader with one click."
@@ -149,7 +163,7 @@ export default function Loaders() {
 function LoaderPreview({ item }: { item: Item }) {
 	if (item.id === 'loader-spinner') return <div className="w-10 h-10 rounded-full border-[3px] border-white/10 border-t-[#B8FB3C] animate-spin" />;
 	if (item.id === 'loader-dots') return <div className="flex items-center gap-1.5">{[0, 200, 400].map((d, i) => <div key={i} className="w-2.5 h-2.5 rounded-full bg-[#B8FB3C] animate-bounce" style={{ animationDelay: `${d}ms` }} />)}</div>;
-	if (item.id === 'loader-bar') return <div className="w-48 h-1 bg-white/10 rounded-full overflow-hidden"><div className="h-full rounded-full animate-pulse" style={{ background: 'linear-gradient(to right, #B8FB3C, #06b6d4)', animation: 'progress-slide 1.8s ease-in-out infinite' }} /></div>;
+	if (item.id === 'loader-bar') return <div className="w-48 h-1 bg-white/10 rounded-full overflow-hidden"><div className="h-full rounded-full" style={{ background: 'linear-gradient(to right, #B8FB3C, #06b6d4)', animation: 'progress-slide 1.8s ease-in-out infinite' }} /></div>;
 	if (item.id === 'loader-pulse') return <div className="w-10 h-10 rounded-full bg-[#B8FB3C]/30 animate-ping" />;
 	if (item.id === 'loader-orbit') return <div className="relative w-11 h-11 rounded-full border-2 border-white/10 animate-spin"><div className="absolute w-2.5 h-2.5 bg-[#B8FB3C] rounded-full -top-1.5 left-1/2 -translate-x-1/2" /></div>;
 	if (item.id === 'loader-skeleton') return <div className="w-3/4 p-3 rounded-xl bg-white/4 border border-white/6 space-y-2"><div className="h-3 w-full rounded bg-white/8 animate-pulse" /><div className="h-3 w-3/4 rounded bg-white/8 animate-pulse" /><div className="h-3 w-1/2 rounded bg-white/8 animate-pulse" /></div>;
@@ -160,7 +174,7 @@ function LoaderPreview({ item }: { item: Item }) {
 	if (item.id === 'loader-dots-typing') return <div className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-white/6 rounded-full">{[0, 200, 400].map((d, i) => <div key={i} className="w-2 h-2 rounded-full bg-white/40 animate-bounce" style={{ animationDelay: `${d}ms` }} />)}</div>;
 	if (item.id === 'loader-spinner-dual') return <div className="relative w-11 h-11"><div className="absolute inset-0 rounded-full border-[3px] border-transparent border-t-[#B8FB3C] animate-spin" /><div className="absolute inset-1.5 rounded-full border-[3px] border-transparent border-b-[#a855f7] animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1.2s' }} /></div>;
 	if (item.id === 'loader-text') return <span className="text-white/70 font-mono text-sm"><span className="animate-pulse">Loading</span><span className="animate-bounce">...</span></span>;
-	if (item.id === 'loader-circular-progress') return <svg className="w-12 h-12 -rotate-90" viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="3" /><circle cx="22" cy="22" r="18" fill="none" stroke="#B8FB3C" strokeWidth="3" strokeLinecap="round" strokeDasharray="113" strokeDashoffset="40" className="animate-spin origin-center" style={{ animation: 'none' }} /></svg>;
+	if (item.id === 'loader-circular-progress') return <svg className="w-12 h-12 -rotate-90" viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="3" /><circle cx="22" cy="22" r="18" fill="none" stroke="#B8FB3C" strokeWidth="3" strokeLinecap="round" strokeDasharray="113" strokeDashoffset="40" style={{ animation: 'circle-progress-preview 2s ease-in-out infinite', transformOrigin: 'center' }} /></svg>;
 	if (item.id === 'loader-wifi') return <div className="flex items-end justify-center gap-1 h-8">{[40, 65, 90].map((h, i) => <div key={i} className="w-1.5 rounded-full bg-[#B8FB3C] animate-pulse" style={{ height: `${h}%`, animationDelay: `${i * 200}ms` }} />)}</div>;
 	return null;
 }

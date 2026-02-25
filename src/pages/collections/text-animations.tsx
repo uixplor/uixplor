@@ -223,6 +223,43 @@ const CATEGORIES = [
 	{ key: 'morph', label: 'Morph' },
 ];
 
+/** Extract all @keyframes blocks from all effects' CSS, handling nested braces */
+function extractAllKeyframes(): string {
+	const allKeyframes: string[] = [];
+	const seen = new Set<string>();
+	for (const effect of textEffects) {
+		const css = effect.css;
+		let i = 0;
+		while (i < css.length) {
+			const kfIdx = css.indexOf('@keyframes', i);
+			if (kfIdx === -1) break;
+			const openBrace = css.indexOf('{', kfIdx);
+			if (openBrace === -1) break;
+			let depth = 0;
+			let j = openBrace;
+			while (j < css.length) {
+				if (css[j] === '{') depth++;
+				else if (css[j] === '}') {
+					depth--;
+					if (depth === 0) break;
+				}
+				j++;
+			}
+			const block = css.slice(kfIdx, j + 1);
+			const nameMatch = block.match(/@keyframes\s+([\w-]+)/);
+			if (nameMatch && !seen.has(nameMatch[1])) {
+				seen.add(nameMatch[1]);
+				allKeyframes.push(block);
+			}
+			i = j + 1;
+		}
+	}
+	return allKeyframes.join('\n');
+}
+
+// Pre-compute keyframes once at module level (server-safe, pure string)
+const ANIMATION_KEYFRAMES = extractAllKeyframes();
+
 /** Build code overlay sections — HTML/CSS/JS — for a text animation effect */
 function buildAnimationSections(effect: TextEffect): CodeSection[] {
 	const cls = effect.id;
@@ -372,6 +409,8 @@ export default function TextAnimations() {
 
 	return (
 		<>
+			{/* Inject all @keyframes so TextPreview inline style animations work */}
+			<style dangerouslySetInnerHTML={{ __html: ANIMATION_KEYFRAMES }} />
 			<PageSEO
 				title="CSS Text Animations – 40 Effects for Modern UI – UIXplor"
 				description="40 CSS text animation effects — typewriter, glitch, gradient, wave, blur, and scramble animations. Click any card to copy plug-and-play CSS code instantly."
