@@ -100,15 +100,13 @@ function MonacoPane({ code, language, containerId }: MonacoPaneProps) {
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const init = async () => {
+			// Use the loader from @monaco-editor/react to get the raw Monaco instance
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const monaco = (await import('@monaco-editor/react' as any)) as any;
+			const { loader } = (await import('@monaco-editor/react')) as any;
+			const loader_instance = await loader.init();
 			if (destroyed || !containerRef.current) return;
 
-			// Use the loader function to get the raw Monaco instance
-			const loader = (await import('monaco-editor/esm/vs/editor/editor.api')) as any;
-			if (destroyed || !containerRef.current) return;
-
-			loader.editor.defineTheme('uixplor-dark', {
+			loader_instance.editor.defineTheme('uixplor-dark', {
 				base: 'vs-dark',
 				inherit: true,
 				rules: [
@@ -131,7 +129,7 @@ function MonacoPane({ code, language, containerId }: MonacoPaneProps) {
 				},
 			});
 
-			editorRef.current = loader.editor.create(containerRef.current, {
+			editorRef.current = loader_instance.editor.create(containerRef.current, {
 				value: code,
 				language: monacoLang(language),
 				theme: 'uixplor-dark',
