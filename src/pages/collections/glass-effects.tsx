@@ -69,7 +69,7 @@ export default function GlassEffects({ items }: { items: GlassItem[] }) {
 										<span className="px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-white/5 text-white/40 border border-white/6 uppercase tracking-wider">{item.tag}</span>
 										<button onClick={() => setSel(item)} className="relative z-10 px-3.5 py-1.5 rounded-lg text-[11px] font-semibold bg-white/6 text-white/50 border border-white/8 hover:bg-sky-400 hover:text-white hover:border-sky-400 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(56,189,248,0.2)] transition-all duration-300 cursor-pointer">View Code →</button>
                       <Link
-                        href={`/component/${item.id}?collection=glass-effects&name=${encodeURIComponent(item.name)}&css=${encodeURIComponent(item.css)}`}
+                        href={`/component/${item.id}?collection=glass-effects`}
                         className="relative z-10 px-3.5 py-1.5 rounded-lg text-[11px] font-semibold bg-[#6C63FF]/10 text-[#a78bfa] border border-[#6C63FF]/20 hover:bg-[#6C63FF]/20 hover:border-[#6C63FF]/40 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
                       >
                         Details

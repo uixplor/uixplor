@@ -14,7 +14,7 @@ interface CardItem {
 	css: string;
 }
 
-const cards: CardItem[] = [
+export const cards: CardItem[] = [
 	{
 		id: 'glass-card',
 		name: 'Glass Card',
@@ -1188,12 +1188,12 @@ function CardGrid() {
 								>
 									View Code →
 								</button>
-                      <a
-                        href={`/component/${card.id}?collection=cards&name=${encodeURIComponent(card.name)}&css=${encodeURIComponent(card.css)}`}
+                      <Link
+                        href={`/component/${card.id}?collection=cards`}
                         className="relative z-10 px-3.5 py-1.5 rounded-lg text-[11px] font-semibold bg-[#6C63FF]/10 text-[#a78bfa] border border-[#6C63FF]/20 hover:bg-[#6C63FF]/20 hover:border-[#6C63FF]/40 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
                       >
                         Details
-                      </a>
+                      </Link>
 							</div>
 						</div>
 					</motion.div>

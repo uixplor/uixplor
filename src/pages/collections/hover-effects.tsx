@@ -7,7 +7,7 @@ import CodeViewerOverlay, { type CodeSection } from '@/components/ui/CodeViewerO
 
 interface HoverItem { id: string; name: string; tag: string; description: string; css: string; }
 
-const items: HoverItem[] = [
+export const items: HoverItem[] = [
 	{
 		id: 'hover-lift', name: 'Lift Shadow', tag: 'elevation', description: 'Card lifts with growing shadow on hover.',
 		css: `.hover-lift {\n  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);\n  cursor: pointer;\n}\n.hover-lift:hover {\n  transform: translateY(-6px);\n  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.08);\n}`
@@ -138,7 +138,7 @@ export default function HoverEffects() {
 										<span className="px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-white/5 text-white/40 border border-white/6 uppercase tracking-wider">{item.tag}</span>
 										<button onClick={() => setSel(item)} className="relative z-10 px-3.5 py-1.5 rounded-lg text-[11px] font-semibold bg-white/6 text-white/50 border border-white/8 hover:bg-pink-400 hover:text-white hover:border-pink-400 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(236,72,153,0.2)] transition-all duration-300 cursor-pointer">View Code →</button>
                       <Link
-                        href={`/component/${item.id}?collection=hover-effects&name=${encodeURIComponent(item.name)}&css=${encodeURIComponent(item.css)}`}
+                        href={`/component/${item.id}?collection=hover-effects`}
                         className="relative z-10 px-3.5 py-1.5 rounded-lg text-[11px] font-semibold bg-[#6C63FF]/10 text-[#a78bfa] border border-[#6C63FF]/20 hover:bg-[#6C63FF]/20 hover:border-[#6C63FF]/40 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
                       >
                         Details

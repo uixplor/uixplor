@@ -7,7 +7,7 @@ import CodeViewerOverlay, { type CodeSection } from '@/components/ui/CodeViewerO
 interface DarkItem { id:string; name:string; tag:string; description:string; preview:React.ReactNode; html:string; css:string; }
 const BG='#0a0a0f';
 
-const items: DarkItem[] = [
+export const items: DarkItem[] = [
   {id:'dark-glass-card',name:'Dark Glass Card',tag:'card',description:'Glassmorphism card for dark backgrounds.',
     preview:(<div style={{background:'linear-gradient(135deg,#1a0533,#0d0d2b)',display:'flex',alignItems:'center',justifyContent:'center',padding:24,borderRadius:12,width:'100%',height:'100%'}}>
       <div style={{background:'rgba(255,255,255,0.06)',backdropFilter:'blur(12px)',border:'1px solid rgba(255,255,255,0.12)',borderRadius:16,padding:20,color:'#fff',width:180}}>
@@ -209,12 +209,12 @@ export default function DarkMode() {
             <div className="px-4 py-3 flex items-center justify-between border-t border-white/6">
               <div className="min-w-0 mr-3"><span className="text-xs font-medium text-white/60 truncate block">{item.name}</span><span className="text-[10px] text-white/25 uppercase tracking-wider">{item.tag}</span></div>
               <button onClick={()=>setSelected(item)} className="shrink-0 px-3.5 py-1.5 rounded-lg text-[11px] font-semibold bg-white/6 text-white/50 border border-white/8 hover:bg-white hover:text-[#0a0a0f] hover:border-white hover:-translate-y-0.5 transition-all duration-300 cursor-pointer">View Code →</button>
-                      <a
-                        href={`/component/${item.id}?collection=dark-mode&name=${encodeURIComponent(item.name)}&css=${encodeURIComponent(item.css)}`}
+                      <Link
+                        href={`/component/${item.id}?collection=dark-mode`}
                         className="relative z-10 px-3.5 py-1.5 rounded-lg text-[11px] font-semibold bg-[#6C63FF]/10 text-[#a78bfa] border border-[#6C63FF]/20 hover:bg-[#6C63FF]/20 hover:border-[#6C63FF]/40 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
                       >
                         Details
-                      </a>
+                      </Link>
             </div>
           </motion.article>))}
         </div>
