@@ -4,6 +4,17 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useNetworkStatus, type NetworkState } from '@/hooks/useNetworkStatus';
 
+function timeAgo(date: Date): string {
+  const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+  if (seconds < 60) return 'Just now';
+  const minutes = Math.floor(seconds / 60);
+  if (minutes === 1) return '1 min ago';
+  if (minutes < 60) return `${minutes} mins ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours === 1) return '1 hr ago';
+  return `${hours} hrs ago`;
+}
+
 const DOT_COLORS: Record<NetworkState, string> = {
   operational: '#B8FB3C',
   degraded: '#fbbf24',
@@ -158,7 +169,13 @@ function LatencySparkline({ history, color, glowColor }: { history: number[]; co
 export default function StatusIndicator() {
   const status = useNetworkStatus();
   const [hovered, setHovered] = useState(false);
-  const dotRef = useRef<HTMLButtonElement>(null);
+  const [, setTick] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const id = setInterval(() => setTick(t => t + 1), 10000);
+    return () => clearInterval(id);
+  }, []);
 
   const color = DOT_COLORS[status.state];
   const glow = GLOW_COLORS[status.state];
@@ -179,7 +196,6 @@ export default function StatusIndicator() {
   return (
     <div className="relative flex items-center">
       <button
-        ref={dotRef}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         onFocus={() => setHovered(true)}
@@ -322,8 +338,8 @@ export default function StatusIndicator() {
                   <span className="text-[10px]" style={{ color: 'rgba(255,255,255,0.25)' }}>
                     Last checked
                   </span>
-                  <span className="text-[10px] tabular-nums" style={{ color: 'rgba(255,255,255,0.2)' }}>
-                    {status.lastChecked.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+                  <span className="text-[10px]" style={{ color: 'rgba(255,255,255,0.2)' }}>
+                    {timeAgo(status.lastChecked)}
                   </span>
                 </div>
               )}

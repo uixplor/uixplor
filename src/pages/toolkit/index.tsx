@@ -300,80 +300,569 @@ function AnimationTool() {
 // ————— Tailwind Converter —————
 const cssToTailwind: Record<string, string> = {
   'display: flex': 'flex',
-  'display: grid': 'grid',
-  'display: block': 'block',
-  'display: none': 'hidden',
   'display: inline-flex': 'inline-flex',
-  'flex-direction: column': 'flex-col',
+  'display: grid': 'grid',
+  'display: inline-grid': 'inline-grid',
+  'display: block': 'block',
+  'display: inline-block': 'inline-block',
+  'display: inline': 'inline',
+  'display: none': 'hidden',
+  'display: contents': 'contents',
+  'display: table': 'table',
+  'display: table-row': 'table-row',
+  'display: table-cell': 'table-cell',
+  'display: flow-root': 'flow-root',
+
   'flex-direction: row': 'flex-row',
+  'flex-direction: row-reverse': 'flex-row-reverse',
+  'flex-direction: column': 'flex-col',
+  'flex-direction: column-reverse': 'flex-col-reverse',
+  'flex-wrap: wrap': 'flex-wrap',
+  'flex-wrap: wrap-reverse': 'flex-wrap-reverse',
+  'flex-wrap: nowrap': 'flex-nowrap',
+  'flex: 1 1 0%': 'flex-1',
+  'flex: 1 1 auto': 'flex-auto',
+  'flex: 0 1 auto': 'flex-initial',
+  'flex: none': 'flex-none',
+  'flex-grow: 0': 'grow-0',
+  'flex-grow: 1': 'grow',
+  'flex-shrink: 0': 'shrink-0',
+  'flex-shrink: 1': 'shrink',
+  'order: -1': '-order-1',
+  'order: 0': 'order-none',
+  'order: 1': 'order-1',
+  'order: 2': 'order-2',
+  'order: 9999': 'order-last',
+  'order: -9999': 'order-first',
+
+  'align-items: flex-start': 'items-start',
+  'align-items: flex-end': 'items-end',
   'align-items: center': 'items-center',
+  'align-items: baseline': 'items-baseline',
+  'align-items: stretch': 'items-stretch',
+  'align-self: auto': 'self-auto',
+  'align-self: flex-start': 'self-start',
+  'align-self: flex-end': 'self-end',
+  'align-self: center': 'self-center',
+  'align-self: stretch': 'self-stretch',
+  'align-self: baseline': 'self-baseline',
+  'align-content: flex-start': 'content-start',
+  'align-content: flex-end': 'content-end',
+  'align-content: center': 'content-center',
+  'align-content: space-between': 'content-between',
+  'align-content: space-around': 'content-around',
+  'align-content: space-evenly': 'content-evenly',
+
+  'justify-content: flex-start': 'justify-start',
+  'justify-content: flex-end': 'justify-end',
   'justify-content: center': 'justify-center',
   'justify-content: space-between': 'justify-between',
-  'justify-content: flex-end': 'justify-end',
-  'flex-wrap: wrap': 'flex-wrap',
+  'justify-content: space-around': 'justify-around',
+  'justify-content: space-evenly': 'justify-evenly',
+  'justify-items: start': 'justify-items-start',
+  'justify-items: end': 'justify-items-end',
+  'justify-items: center': 'justify-items-center',
+  'justify-items: stretch': 'justify-items-stretch',
+  'justify-self: auto': 'justify-self-auto',
+  'justify-self: start': 'justify-self-start',
+  'justify-self: end': 'justify-self-end',
+  'justify-self: center': 'justify-self-center',
+  'justify-self: stretch': 'justify-self-stretch',
+
+  'place-content: center': 'place-content-center',
+  'place-items: center': 'place-items-center',
+  'place-self: center': 'place-self-center',
+
+  'grid-template-columns: repeat(1, minmax(0, 1fr))': 'grid-cols-1',
+  'grid-template-columns: repeat(2, minmax(0, 1fr))': 'grid-cols-2',
+  'grid-template-columns: repeat(3, minmax(0, 1fr))': 'grid-cols-3',
+  'grid-template-columns: repeat(4, minmax(0, 1fr))': 'grid-cols-4',
+  'grid-template-columns: repeat(6, minmax(0, 1fr))': 'grid-cols-6',
+  'grid-template-columns: repeat(12, minmax(0, 1fr))': 'grid-cols-12',
+  'grid-template-columns: none': 'grid-cols-none',
+  'grid-template-rows: repeat(1, minmax(0, 1fr))': 'grid-rows-1',
+  'grid-template-rows: repeat(2, minmax(0, 1fr))': 'grid-rows-2',
+  'grid-template-rows: repeat(3, minmax(0, 1fr))': 'grid-rows-3',
+  'grid-template-rows: none': 'grid-rows-none',
+  'grid-auto-flow: row': 'grid-flow-row',
+  'grid-auto-flow: column': 'grid-flow-col',
+  'grid-auto-flow: dense': 'grid-flow-dense',
+  'grid-column: span 1 / span 1': 'col-span-1',
+  'grid-column: span 2 / span 2': 'col-span-2',
+  'grid-column: span 3 / span 3': 'col-span-3',
+  'grid-column: span 4 / span 4': 'col-span-4',
+  'grid-column: span 6 / span 6': 'col-span-6',
+  'grid-column: 1 / -1': 'col-span-full',
+
+  'position: static': 'static',
+  'position: relative': 'relative',
+  'position: absolute': 'absolute',
+  'position: fixed': 'fixed',
+  'position: sticky': 'sticky',
+
+  'top: 0': 'top-0',
+  'right: 0': 'right-0',
+  'bottom: 0': 'bottom-0',
+  'left: 0': 'left-0',
+  'inset: 0': 'inset-0',
+  'top: auto': 'top-auto',
+  'right: auto': 'right-auto',
+  'bottom: auto': 'bottom-auto',
+  'left: auto': 'left-auto',
+
+  'z-index: 0': 'z-0',
+  'z-index: 10': 'z-10',
+  'z-index: 20': 'z-20',
+  'z-index: 30': 'z-30',
+  'z-index: 40': 'z-40',
+  'z-index: 50': 'z-50',
+  'z-index: auto': 'z-auto',
+
+  'width: 100%': 'w-full',
+  'width: auto': 'w-auto',
+  'width: 100vw': 'w-screen',
+  'width: min-content': 'w-min',
+  'width: max-content': 'w-max',
+  'width: fit-content': 'w-fit',
+  'height: 100%': 'h-full',
+  'height: auto': 'h-auto',
+  'height: 100vh': 'h-screen',
+  'height: min-content': 'h-min',
+  'height: max-content': 'h-max',
+  'height: fit-content': 'h-fit',
+  'min-width: 0': 'min-w-0',
+  'min-width: 100%': 'min-w-full',
+  'min-width: min-content': 'min-w-min',
+  'min-width: max-content': 'min-w-max',
+  'min-height: 0': 'min-h-0',
+  'min-height: 100%': 'min-h-full',
+  'min-height: 100vh': 'min-h-screen',
+  'max-width: none': 'max-w-none',
+  'max-width: 100%': 'max-w-full',
+  'max-height: none': 'max-h-none',
+  'max-height: 100%': 'max-h-full',
+  'max-height: 100vh': 'max-h-screen',
+
+  'overflow: hidden': 'overflow-hidden',
+  'overflow: auto': 'overflow-auto',
+  'overflow: scroll': 'overflow-scroll',
+  'overflow: visible': 'overflow-visible',
+  'overflow-x: hidden': 'overflow-x-hidden',
+  'overflow-x: auto': 'overflow-x-auto',
+  'overflow-x: scroll': 'overflow-x-scroll',
+  'overflow-y: hidden': 'overflow-y-hidden',
+  'overflow-y: auto': 'overflow-y-auto',
+  'overflow-y: scroll': 'overflow-y-scroll',
+
+  'font-weight: 100': 'font-thin',
+  'font-weight: 200': 'font-extralight',
+  'font-weight: 300': 'font-light',
   'font-weight: 400': 'font-normal',
   'font-weight: 500': 'font-medium',
   'font-weight: 600': 'font-semibold',
   'font-weight: 700': 'font-bold',
   'font-weight: 800': 'font-extrabold',
   'font-weight: 900': 'font-black',
-  'text-align: center': 'text-center',
+  'font-style: italic': 'italic',
+  'font-style: normal': 'not-italic',
+  'font-size: 0.75rem': 'text-xs',
+  'font-size: 12px': 'text-xs',
+  'font-size: 0.875rem': 'text-sm',
+  'font-size: 14px': 'text-sm',
+  'font-size: 1rem': 'text-base',
+  'font-size: 16px': 'text-base',
+  'font-size: 1.125rem': 'text-lg',
+  'font-size: 18px': 'text-lg',
+  'font-size: 1.25rem': 'text-xl',
+  'font-size: 20px': 'text-xl',
+  'font-size: 1.5rem': 'text-2xl',
+  'font-size: 24px': 'text-2xl',
+  'font-size: 1.875rem': 'text-3xl',
+  'font-size: 30px': 'text-3xl',
+  'font-size: 2.25rem': 'text-4xl',
+  'font-size: 36px': 'text-4xl',
+  'font-size: 3rem': 'text-5xl',
+  'font-size: 48px': 'text-5xl',
+  'font-size: 3.75rem': 'text-6xl',
+
   'text-align: left': 'text-left',
+  'text-align: center': 'text-center',
   'text-align: right': 'text-right',
+  'text-align: justify': 'text-justify',
   'text-transform: uppercase': 'uppercase',
   'text-transform: lowercase': 'lowercase',
   'text-transform: capitalize': 'capitalize',
-  'overflow: hidden': 'overflow-hidden',
-  'overflow: auto': 'overflow-auto',
-  'position: relative': 'relative',
-  'position: absolute': 'absolute',
-  'position: fixed': 'fixed',
-  'position: sticky': 'sticky',
-  'cursor: pointer': 'cursor-pointer',
-  'cursor: default': 'cursor-default',
-  'opacity: 0': 'opacity-0',
-  'opacity: 0.5': 'opacity-50',
-  'opacity: 1': 'opacity-100',
+  'text-transform: none': 'normal-case',
+  'text-decoration: underline': 'underline',
+  'text-decoration: line-through': 'line-through',
+  'text-decoration: none': 'no-underline',
+  'text-decoration-line: underline': 'underline',
+  'text-decoration-line: line-through': 'line-through',
+  'text-decoration-line: none': 'no-underline',
+  'text-overflow: ellipsis': 'text-ellipsis',
+  'text-overflow: clip': 'text-clip',
+  'white-space: nowrap': 'whitespace-nowrap',
+  'white-space: normal': 'whitespace-normal',
+  'white-space: pre': 'whitespace-pre',
+  'white-space: pre-wrap': 'whitespace-pre-wrap',
+  'white-space: pre-line': 'whitespace-pre-line',
+  'white-space: break-spaces': 'whitespace-break-spaces',
+  'word-break: break-all': 'break-all',
+  'word-break: break-word': 'break-words',
+  'word-break: normal': 'break-normal',
+  'overflow-wrap: break-word': 'break-words',
+  'line-height: 1': 'leading-none',
+  'line-height: 1.25': 'leading-tight',
+  'line-height: 1.375': 'leading-snug',
+  'line-height: 1.5': 'leading-normal',
+  'line-height: 1.625': 'leading-relaxed',
+  'line-height: 2': 'leading-loose',
+  'letter-spacing: -0.05em': 'tracking-tighter',
+  'letter-spacing: -0.025em': 'tracking-tight',
+  'letter-spacing: 0': 'tracking-normal',
+  'letter-spacing: 0.025em': 'tracking-wide',
+  'letter-spacing: 0.05em': 'tracking-wider',
+  'letter-spacing: 0.1em': 'tracking-widest',
+  'vertical-align: baseline': 'align-baseline',
+  'vertical-align: top': 'align-top',
+  'vertical-align: middle': 'align-middle',
+  'vertical-align: bottom': 'align-bottom',
+  'vertical-align: text-top': 'align-text-top',
+  'vertical-align: text-bottom': 'align-text-bottom',
+
+  'list-style-type: none': 'list-none',
+  'list-style-type: disc': 'list-disc',
+  'list-style-type: decimal': 'list-decimal',
+  'list-style-position: inside': 'list-inside',
+  'list-style-position: outside': 'list-outside',
+
+  'border-radius: 0': 'rounded-none',
+  'border-radius: 0px': 'rounded-none',
+  'border-radius: 2px': 'rounded-sm',
   'border-radius: 4px': 'rounded',
+  'border-radius: 6px': 'rounded-md',
   'border-radius: 8px': 'rounded-lg',
   'border-radius: 12px': 'rounded-xl',
   'border-radius: 16px': 'rounded-2xl',
+  'border-radius: 24px': 'rounded-3xl',
   'border-radius: 9999px': 'rounded-full',
-  'border-radius: 0': 'rounded-none',
-  'width: 100%': 'w-full',
-  'height: 100%': 'h-full',
-  'min-height: 100vh': 'min-h-screen',
+  'border-radius: 50%': 'rounded-full',
+  'border-style: solid': 'border-solid',
+  'border-style: dashed': 'border-dashed',
+  'border-style: dotted': 'border-dotted',
+  'border-style: double': 'border-double',
+  'border-style: none': 'border-none',
+  'border-width: 0': 'border-0',
+  'border-width: 0px': 'border-0',
+  'border-width: 1px': 'border',
+  'border-width: 2px': 'border-2',
+  'border-width: 4px': 'border-4',
+  'border-width: 8px': 'border-8',
+  'border-collapse: collapse': 'border-collapse',
+  'border-collapse: separate': 'border-separate',
+
+  'outline: none': 'outline-none',
+  'outline: 0': 'outline-none',
+  'outline-style: none': 'outline-none',
+
+  'box-sizing: border-box': 'box-border',
+  'box-sizing: content-box': 'box-content',
+
+  'cursor: pointer': 'cursor-pointer',
+  'cursor: default': 'cursor-default',
+  'cursor: wait': 'cursor-wait',
+  'cursor: text': 'cursor-text',
+  'cursor: move': 'cursor-move',
+  'cursor: not-allowed': 'cursor-not-allowed',
+  'cursor: grab': 'cursor-grab',
+  'cursor: grabbing': 'cursor-grabbing',
+  'cursor: crosshair': 'cursor-crosshair',
+  'cursor: none': 'cursor-none',
+
+  'pointer-events: none': 'pointer-events-none',
+  'pointer-events: auto': 'pointer-events-auto',
+  'user-select: none': 'select-none',
+  'user-select: text': 'select-text',
+  'user-select: all': 'select-all',
+  'user-select: auto': 'select-auto',
+  '-webkit-user-select: none': 'select-none',
+
+  'visibility: visible': 'visible',
+  'visibility: hidden': 'invisible',
+  'visibility: collapse': 'collapse',
+
+  'opacity: 0': 'opacity-0',
+  'opacity: 0.05': 'opacity-5',
+  'opacity: 0.1': 'opacity-10',
+  'opacity: 0.2': 'opacity-20',
+  'opacity: 0.25': 'opacity-25',
+  'opacity: 0.3': 'opacity-30',
+  'opacity: 0.4': 'opacity-40',
+  'opacity: 0.5': 'opacity-50',
+  'opacity: 0.6': 'opacity-60',
+  'opacity: 0.7': 'opacity-70',
+  'opacity: 0.75': 'opacity-75',
+  'opacity: 0.8': 'opacity-80',
+  'opacity: 0.9': 'opacity-90',
+  'opacity: 0.95': 'opacity-95',
+  'opacity: 1': 'opacity-100',
+
+  'transition-property: none': 'transition-none',
+  'transition-property: all': 'transition-all',
+  'transition-timing-function: linear': 'ease-linear',
+  'transition-timing-function: ease-in': 'ease-in',
+  'transition-timing-function: ease-out': 'ease-out',
+  'transition-timing-function: ease-in-out': 'ease-in-out',
+  'transition-duration: 75ms': 'duration-75',
+  'transition-duration: 100ms': 'duration-100',
+  'transition-duration: 150ms': 'duration-150',
+  'transition-duration: 200ms': 'duration-200',
+  'transition-duration: 300ms': 'duration-300',
+  'transition-duration: 500ms': 'duration-500',
+  'transition-duration: 700ms': 'duration-700',
+  'transition-duration: 1000ms': 'duration-1000',
+  'transition-delay: 75ms': 'delay-75',
+  'transition-delay: 100ms': 'delay-100',
+  'transition-delay: 150ms': 'delay-150',
+  'transition-delay: 200ms': 'delay-200',
+  'transition-delay: 300ms': 'delay-300',
+  'transition-delay: 500ms': 'delay-500',
+
+  'transform: none': 'transform-none',
+  'transform-origin: center': 'origin-center',
+  'transform-origin: top': 'origin-top',
+  'transform-origin: top right': 'origin-top-right',
+  'transform-origin: right': 'origin-right',
+  'transform-origin: bottom right': 'origin-bottom-right',
+  'transform-origin: bottom': 'origin-bottom',
+  'transform-origin: bottom left': 'origin-bottom-left',
+  'transform-origin: left': 'origin-left',
+  'transform-origin: top left': 'origin-top-left',
+
+  'resize: none': 'resize-none',
+  'resize: both': 'resize',
+  'resize: vertical': 'resize-y',
+  'resize: horizontal': 'resize-x',
+
+  'object-fit: contain': 'object-contain',
+  'object-fit: cover': 'object-cover',
+  'object-fit: fill': 'object-fill',
+  'object-fit: none': 'object-none',
+  'object-fit: scale-down': 'object-scale-down',
+  'object-position: center': 'object-center',
+  'object-position: top': 'object-top',
+  'object-position: bottom': 'object-bottom',
+
+  'background-color: transparent': 'bg-transparent',
+  'background-color: currentColor': 'bg-current',
+  'background-size: cover': 'bg-cover',
+  'background-size: contain': 'bg-contain',
+  'background-size: auto': 'bg-auto',
+  'background-repeat: no-repeat': 'bg-no-repeat',
+  'background-repeat: repeat': 'bg-repeat',
+  'background-repeat: repeat-x': 'bg-repeat-x',
+  'background-repeat: repeat-y': 'bg-repeat-y',
+  'background-position: center': 'bg-center',
+  'background-position: top': 'bg-top',
+  'background-position: bottom': 'bg-bottom',
+  'background-position: left': 'bg-left',
+  'background-position: right': 'bg-right',
+  'background-attachment: fixed': 'bg-fixed',
+  'background-attachment: local': 'bg-local',
+  'background-attachment: scroll': 'bg-scroll',
+
+  'mix-blend-mode: normal': 'mix-blend-normal',
+  'mix-blend-mode: multiply': 'mix-blend-multiply',
+  'mix-blend-mode: screen': 'mix-blend-screen',
+  'mix-blend-mode: overlay': 'mix-blend-overlay',
+
+  'isolation: isolate': 'isolate',
+  'isolation: auto': 'isolation-auto',
+
+  'appearance: none': 'appearance-none',
+  '-webkit-appearance: none': 'appearance-none',
+
+  'box-decoration-break: clone': 'box-decoration-clone',
+  'box-decoration-break: slice': 'box-decoration-slice',
+
+  'float: left': 'float-left',
+  'float: right': 'float-right',
+  'float: none': 'float-none',
+  'clear: left': 'clear-left',
+  'clear: right': 'clear-right',
+  'clear: both': 'clear-both',
+  'clear: none': 'clear-none',
+
+  'table-layout: auto': 'table-auto',
+  'table-layout: fixed': 'table-fixed',
+
+  'content: none': 'content-none',
+
+  'will-change: auto': 'will-change-auto',
+  'will-change: scroll-position': 'will-change-scroll',
+  'will-change: contents': 'will-change-contents',
+  'will-change: transform': 'will-change-transform',
+
+  'scroll-behavior: auto': 'scroll-auto',
+  'scroll-behavior: smooth': 'scroll-smooth',
+
+  'touch-action: none': 'touch-none',
+  'touch-action: auto': 'touch-auto',
+  'touch-action: manipulation': 'touch-manipulation',
+  'touch-action: pan-x': 'touch-pan-x',
+  'touch-action: pan-y': 'touch-pan-y',
+
+  'accent-color: auto': 'accent-auto',
+  'caret-color: transparent': 'caret-transparent',
+
+  'columns: 1': 'columns-1',
+  'columns: 2': 'columns-2',
+  'columns: 3': 'columns-3',
+  'columns: 4': 'columns-4',
+
+  'break-after: auto': 'break-after-auto',
+  'break-after: avoid': 'break-after-avoid',
+  'break-before: auto': 'break-before-auto',
+  'break-before: avoid': 'break-before-avoid',
+  'break-inside: auto': 'break-inside-auto',
+  'break-inside: avoid': 'break-inside-avoid',
+
+  'hyphens: none': 'hyphens-none',
+  'hyphens: manual': 'hyphens-manual',
+  'hyphens: auto': 'hyphens-auto',
 };
 
+const FALLBACK_PREFIX: [string, string][] = [
+  ['padding-top:', 'pt'],
+  ['padding-right:', 'pr'],
+  ['padding-bottom:', 'pb'],
+  ['padding-left:', 'pl'],
+  ['padding-inline:', 'px'],
+  ['padding-block:', 'py'],
+  ['padding:', 'p'],
+  ['margin-top:', 'mt'],
+  ['margin-right:', 'mr'],
+  ['margin-bottom:', 'mb'],
+  ['margin-left:', 'ml'],
+  ['margin-inline:', 'mx'],
+  ['margin-block:', 'my'],
+  ['margin:', 'm'],
+  ['gap:', 'gap'],
+  ['row-gap:', 'gap-y'],
+  ['column-gap:', 'gap-x'],
+  ['font-size:', 'text'],
+  ['color:', 'text'],
+  ['background-color:', 'bg'],
+  ['background:', 'bg'],
+  ['border-color:', 'border'],
+  ['border-width:', 'border'],
+  ['border-radius:', 'rounded'],
+  ['width:', 'w'],
+  ['height:', 'h'],
+  ['min-width:', 'min-w'],
+  ['min-height:', 'min-h'],
+  ['max-width:', 'max-w'],
+  ['max-height:', 'max-h'],
+  ['top:', 'top'],
+  ['right:', 'right'],
+  ['bottom:', 'bottom'],
+  ['left:', 'left'],
+  ['inset:', 'inset'],
+  ['z-index:', 'z'],
+  ['line-height:', 'leading'],
+  ['letter-spacing:', 'tracking'],
+  ['border-top-left-radius:', 'rounded-tl'],
+  ['border-top-right-radius:', 'rounded-tr'],
+  ['border-bottom-left-radius:', 'rounded-bl'],
+  ['border-bottom-right-radius:', 'rounded-br'],
+  ['outline-offset:', 'outline-offset'],
+  ['text-indent:', 'indent'],
+  ['transition-duration:', 'duration'],
+  ['transition-delay:', 'delay'],
+  ['opacity:', 'opacity'],
+  ['columns:', 'columns'],
+  ['aspect-ratio:', 'aspect'],
+  ['accent-color:', 'accent'],
+  ['caret-color:', 'caret'],
+  ['scroll-margin:', 'scroll-m'],
+  ['scroll-padding:', 'scroll-p'],
+  ['stroke-width:', 'stroke'],
+  ['fill:', 'fill'],
+  ['stroke:', 'stroke'],
+];
+
+function normalizeLine(raw: string): string {
+  const cleaned = raw.trim().replace(/;$/, '').trim();
+  const colonIdx = cleaned.indexOf(':');
+  if (colonIdx === -1) return cleaned;
+  const prop = cleaned.slice(0, colonIdx).trim();
+  const val = cleaned.slice(colonIdx + 1).trim();
+  return `${prop}: ${val}`;
+}
+
 function TailwindConverter() {
-  const [input, setInput] = useState('display: flex;\nalign-items: center;\nfont-weight: 600;\nborder-radius: 8px;');
+  const [input, setInput] = useState('display: flex;\nalign-items: center;\nflex-direction: column;\nfont-weight: 600;\nborder-radius: 8px;\ngap: 16px;');
   const [copied, setCopied] = useState(false);
 
   const convert = useCallback((css: string) => {
-    const lines = css.split('\n').map((l) => l.trim().replace(/;$/, ''));
+    const lines = css.split('\n').map(normalizeLine);
     const classes: string[] = [];
     const unknowns: string[] = [];
+
     for (const line of lines) {
       if (!line) continue;
-      const match = cssToTailwind[line];
-      if (match) classes.push(match);
-      else if (line.startsWith('padding:')) {
-        const v = line.replace('padding:', '').trim();
-        classes.push(`p-[${v}]`);
-      } else if (line.startsWith('margin:')) {
-        classes.push(`m-[${line.replace('margin:', '').trim()}]`);
-      } else if (line.startsWith('font-size:')) {
-        classes.push(`text-[${line.replace('font-size:', '').trim()}]`);
-      } else if (line.startsWith('color:')) {
-        classes.push(`text-[${line.replace('color:', '').trim()}]`);
-      } else if (line.startsWith('background')) {
-        classes.push(`bg-[${line.split(':').slice(1).join(':').trim()}]`);
-      } else if (line.startsWith('gap:')) {
-        classes.push(`gap-[${line.replace('gap:', '').trim()}]`);
-      } else if (line) {
+
+      const exact = cssToTailwind[line];
+      if (exact) {
+        classes.push(exact);
+        continue;
+      }
+
+      let handled = false;
+      for (const [prefix, twPrefix] of FALLBACK_PREFIX) {
+        const normalizedPrefix = prefix.endsWith(':') ? prefix : prefix;
+        if (line.startsWith(normalizedPrefix.replace(/:$/, '') + ':')) {
+          const val = line.slice(line.indexOf(':') + 1).trim();
+          classes.push(`${twPrefix}-[${val}]`);
+          handled = true;
+          break;
+        }
+      }
+
+      if (!handled && line.startsWith('box-shadow:')) {
+        const val = line.slice(line.indexOf(':') + 1).trim();
+        if (val === 'none') classes.push('shadow-none');
+        else classes.push(`shadow-[${val.replace(/\s+/g, '_')}]`);
+        handled = true;
+      }
+
+      if (!handled && line.startsWith('transform:')) {
+        const val = line.slice(line.indexOf(':') + 1).trim();
+        if (val === 'none') classes.push('transform-none');
+        else classes.push(`[transform:${val.replace(/\s+/g, '_')}]`);
+        handled = true;
+      }
+
+      if (!handled && line.startsWith('transition:')) {
+        const val = line.slice(line.indexOf(':') + 1).trim();
+        if (val === 'none') classes.push('transition-none');
+        else if (val === 'all') classes.push('transition-all');
+        else classes.push(`[transition:${val.replace(/\s+/g, '_')}]`);
+        handled = true;
+      }
+
+      if (!handled && line.startsWith('animation:')) {
+        const val = line.slice(line.indexOf(':') + 1).trim();
+        if (val === 'none') classes.push('animate-none');
+        else classes.push(`[animation:${val.replace(/\s+/g, '_')}]`);
+        handled = true;
+      }
+
+      if (!handled) {
         unknowns.push(`/* ${line} */`);
       }
     }
+
     return { classes: classes.join(' '), unknowns };
   }, []);
 
