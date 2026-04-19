@@ -24,6 +24,7 @@ const navGroups = [
             { href: '/playground', label: 'Playground', desc: 'Live code editor', color: '#B8FB3C', icon: '</>' },
             { href: '/builder', label: 'Builder', desc: 'Visual component builder', color: '#60a5fa', icon: '⬡' },
             { href: '/toolkit', label: 'Toolkit', desc: 'CSS generators', color: '#fbbf24', icon: '⚙' },
+            { href: '/toolkit/fluid', label: 'Fluid Design', desc: 'Clamp() playground', color: '#B8FB3C', icon: '◎' },
         ],
     },
     {
