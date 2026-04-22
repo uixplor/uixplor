@@ -6,7 +6,7 @@ import CodeViewerOverlay, { type CodeSection } from '@/components/ui/CodeViewerO
 
 interface FeedbackItem { id:string; name:string; tag:string; description:string; preview:React.ReactNode; html:string; css:string; }
 
-const items: FeedbackItem[] = [
+export const items: FeedbackItem[] = [
   {
     id:'toast-success', name:'Success Toast', tag:'toast', description:'Green success toast notification.',
     preview:(<div style={{display:'flex',alignItems:'center',gap:10,background:'#f0fdf4',border:'1px solid #bbf7d0',borderRadius:10,padding:'12px 16px',fontFamily:'system-ui',maxWidth:280}}>
@@ -416,12 +416,12 @@ export default function Feedback() {
             <div className="px-4 py-3 flex items-center justify-between border-t border-white/6">
               <div className="min-w-0 mr-3"><span className="text-xs font-medium text-white/60 truncate block">{item.name}</span><span className="text-[10px] text-white/25 uppercase tracking-wider">{item.tag}</span></div>
               <button onClick={()=>setSelected(item)} className="shrink-0 px-3.5 py-1.5 rounded-lg text-[11px] font-semibold bg-white/6 text-white/50 border border-white/8 hover:bg-white hover:text-[#0a0a0f] hover:border-white hover:-translate-y-0.5 transition-all duration-300 cursor-pointer">View Code →</button>
-                      <a
-                        href={`/component/${item.id}?collection=feedback&name=${encodeURIComponent(item.name)}&css=${encodeURIComponent(item.css)}`}
+                      <Link
+                        href={`/component/${item.id}?collection=feedback`}
                         className="relative z-10 px-3.5 py-1.5 rounded-lg text-[11px] font-semibold bg-[#6C63FF]/10 text-[#a78bfa] border border-[#6C63FF]/20 hover:bg-[#6C63FF]/20 hover:border-[#6C63FF]/40 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
                       >
                         Details
-                      </a>
+                      </Link>
             </div>
           </motion.article>))}
         </div>

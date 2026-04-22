@@ -637,6 +637,7 @@ function DocsContent() {
                   border: `1px solid ${active === n.id ? 'rgba(184,251,60,0.2)' : 'transparent'}`,
                 }}
               >
+
                 <span className="text-base leading-none">{n.icon}</span>
                 <span className="font-medium text-xs">{n.label}</span>
               </button>

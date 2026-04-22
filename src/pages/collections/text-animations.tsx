@@ -12,7 +12,7 @@ interface TextEffect {
 	css: string;
 }
 
-const textEffects: TextEffect[] = [
+export const textEffects: TextEffect[] = [
 	// ── Typewriter ──
 	{
 		id: 'typewriter-basic', name: 'Typewriter', category: 'typewriter', text: 'Hello World',
@@ -521,12 +521,12 @@ export default function TextAnimations() {
 									>
 										View Code →
 									</button>
-                      <a
-                        href={`/component/${effect.id}?collection=text-animations&name=${encodeURIComponent(effect.name)}&css=${encodeURIComponent(effect.css)}`}
+                      <Link
+                        href={`/component/${effect.id}?collection=text-animations`}
                         className="relative z-10 px-3.5 py-1.5 rounded-lg text-[11px] font-semibold bg-[#6C63FF]/10 text-[#a78bfa] border border-[#6C63FF]/20 hover:bg-[#6C63FF]/20 hover:border-[#6C63FF]/40 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
                       >
                         Details
-                      </a>
+                      </Link>
 								</div>
 							</motion.div>
 						))}

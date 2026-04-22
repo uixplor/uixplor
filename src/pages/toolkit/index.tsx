@@ -1,12 +1,38 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { motion } from 'motion/react';
 import PageSEO from '@/components/seo/PageSEO';
 
 type ActiveTool = 'shadow' | 'gradient' | 'radius' | 'animation' | 'tailwind';
 const VALID_TOOLS: ActiveTool[] = ['shadow', 'gradient', 'radius', 'animation', 'tailwind'];
+
+function CodeWindow({ title, children, onCopy, copied }: { title: string; children: React.ReactNode; onCopy?: () => void; copied?: boolean }) {
+  return (
+    <div className="rounded-xl overflow-hidden" style={{ background: '#0D0D0D', border: '1px solid rgba(255,255,255,0.08)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.03)' }}>
+      <div className="flex items-center justify-between px-4 py-3" style={{ background: 'rgba(255,255,255,0.03)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+        <div className="flex items-center gap-1.5">
+          <span className="w-3 h-3 rounded-full" style={{ background: '#ff5f57' }} />
+          <span className="w-3 h-3 rounded-full" style={{ background: '#febc2e' }} />
+          <span className="w-3 h-3 rounded-full" style={{ background: '#28c840' }} />
+        </div>
+        <span className="text-xs font-semibold tracking-wide" style={{ color: 'rgba(255,255,255,0.45)' }}>{title}</span>
+        {onCopy && (
+          <button
+            onClick={onCopy}
+            className="px-3 py-1 rounded-md text-xs font-semibold transition-all"
+            style={{ background: copied ? 'rgba(184,251,60,0.15)' : 'rgba(255,255,255,0.06)', color: copied ? '#B8FB3C' : 'rgba(255,255,255,0.7)' }}
+          >
+            {copied ? '✓ Copied' : 'Copy'}
+          </button>
+        )}
+        {!onCopy && <div className="w-12" />}
+      </div>
+      {children}
+    </div>
+  );
+}
 
 // ————— Box Shadow Generator —————
 interface ShadowLayer {
@@ -82,13 +108,9 @@ function ShadowTool() {
         <div className="h-40 rounded-2xl flex items-center justify-center border transition-colors duration-300" style={{ background: bgStyles[previewBg].bg, borderColor: '#2A2A2A' }}>
           <div className="w-20 h-20 rounded-2xl transition-colors duration-300" style={{ background: bgStyles[previewBg].boxColor, boxShadow: shadow }} />
         </div>
-        <div className="rounded-xl overflow-hidden border relative" style={{ background: '#0D0D0D', borderColor: '#2A2A2A' }}>
-          <pre className="p-3 text-xs font-mono text-white/70">{css}</pre>
-          <button onClick={copy} className="absolute top-2 right-2 px-3 py-1 rounded-lg text-xs font-semibold transition-all"
-            style={{ background: copied ? 'rgba(108,99,255,0.2)' : 'rgba(255,255,255,0.06)', color: copied ? '#a78bfa' : 'rgba(255,255,255,0.5)' }}>
-            {copied ? '✓ Copied' : 'Copy'}
-          </button>
-        </div>
+        <CodeWindow title="box-shadow.css" onCopy={copy} copied={copied}>
+          <pre className="p-4 text-sm font-mono text-white/80">{css}</pre>
+        </CodeWindow>
       </div>
     </div>
   );
@@ -137,14 +159,9 @@ function GradientTool() {
       </div>
       <div className="space-y-4">
         <div className="h-40 rounded-2xl border" style={{ background: gradient, borderColor: '#2A2A2A' }} />
-        <div className="rounded-xl overflow-hidden border relative" style={{ background: '#0D0D0D', borderColor: '#2A2A2A' }}>
-          <pre className="p-3 text-xs font-mono text-white/70 whitespace-pre-wrap break-all">{css}</pre>
-          <button onClick={() => { navigator.clipboard.writeText(css).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); }); }}
-            className="absolute top-2 right-2 px-3 py-1 rounded-lg text-xs font-semibold transition-all"
-            style={{ background: copied ? 'rgba(108,99,255,0.2)' : 'rgba(255,255,255,0.06)', color: copied ? '#a78bfa' : 'rgba(255,255,255,0.5)' }}>
-            {copied ? '✓ Copied' : 'Copy'}
-          </button>
-        </div>
+        <CodeWindow title="gradient.css" onCopy={() => { navigator.clipboard.writeText(css).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); }); }} copied={copied}>
+          <pre className="p-4 text-sm font-mono text-white/80 whitespace-pre-wrap break-all">{css}</pre>
+        </CodeWindow>
       </div>
     </div>
   );
@@ -186,14 +203,9 @@ function RadiusTool() {
           <div className="w-36 h-20 bg-gradient-to-br from-[#6C63FF] to-[#8b5cf6]"
             style={{ borderRadius: `${corners.tl}px ${corners.tr}px ${corners.br}px ${corners.bl}px` }} />
         </div>
-        <div className="rounded-xl overflow-hidden border relative" style={{ background: '#0D0D0D', borderColor: '#2A2A2A' }}>
-          <pre className="p-3 text-xs font-mono text-white/70">{css}</pre>
-          <button onClick={() => { navigator.clipboard.writeText(css).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); }); }}
-            className="absolute top-2 right-2 px-3 py-1 rounded-lg text-xs font-semibold transition-all"
-            style={{ background: copied ? 'rgba(108,99,255,0.2)' : 'rgba(255,255,255,0.06)', color: copied ? '#a78bfa' : 'rgba(255,255,255,0.5)' }}>
-            {copied ? '✓ Copied' : 'Copy'}
-          </button>
-        </div>
+        <CodeWindow title="border-radius.css" onCopy={() => { navigator.clipboard.writeText(css).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); }); }} copied={copied}>
+          <pre className="p-4 text-sm font-mono text-white/80">{css}</pre>
+        </CodeWindow>
       </div>
     </div>
   );
@@ -284,14 +296,9 @@ function AnimationTool() {
           />
           <span className="text-[10px] font-semibold" style={{ color: 'rgba(255,255,255,0.2)' }}>Live Preview — {anim.type}</span>
         </div>
-        <div className="rounded-xl overflow-hidden border relative" style={{ background: '#0D0D0D', borderColor: '#2A2A2A', minHeight: 160 }}>
-          <pre className="p-3 text-[11px] font-mono text-white/60 leading-relaxed whitespace-pre-wrap">{css}</pre>
-          <button onClick={() => { navigator.clipboard.writeText(css).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); }); }}
-            className="absolute top-2 right-2 px-3 py-1 rounded-lg text-xs font-semibold transition-all"
-            style={{ background: copied ? 'rgba(108,99,255,0.2)' : 'rgba(255,255,255,0.06)', color: copied ? '#a78bfa' : 'rgba(255,255,255,0.5)' }}>
-            {copied ? '✓ Copied' : 'Copy'}
-          </button>
-        </div>
+        <CodeWindow title="animation.css" onCopy={() => { navigator.clipboard.writeText(css).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); }); }} copied={copied}>
+          <pre className="p-4 text-sm font-mono text-white/80 leading-relaxed whitespace-pre-wrap" style={{ minHeight: 130 }}>{css}</pre>
+        </CodeWindow>
       </div>
     </div>
   );
@@ -300,80 +307,633 @@ function AnimationTool() {
 // ————— Tailwind Converter —————
 const cssToTailwind: Record<string, string> = {
   'display: flex': 'flex',
-  'display: grid': 'grid',
-  'display: block': 'block',
-  'display: none': 'hidden',
   'display: inline-flex': 'inline-flex',
-  'flex-direction: column': 'flex-col',
+  'display: grid': 'grid',
+  'display: inline-grid': 'inline-grid',
+  'display: block': 'block',
+  'display: inline-block': 'inline-block',
+  'display: inline': 'inline',
+  'display: none': 'hidden',
+  'display: contents': 'contents',
+  'display: table': 'table',
+  'display: table-row': 'table-row',
+  'display: table-cell': 'table-cell',
+  'display: flow-root': 'flow-root',
+
   'flex-direction: row': 'flex-row',
+  'flex-direction: row-reverse': 'flex-row-reverse',
+  'flex-direction: column': 'flex-col',
+  'flex-direction: column-reverse': 'flex-col-reverse',
+  'flex-wrap: wrap': 'flex-wrap',
+  'flex-wrap: wrap-reverse': 'flex-wrap-reverse',
+  'flex-wrap: nowrap': 'flex-nowrap',
+  'flex: 1 1 0%': 'flex-1',
+  'flex: 1 1 auto': 'flex-auto',
+  'flex: 0 1 auto': 'flex-initial',
+  'flex: none': 'flex-none',
+  'flex-grow: 0': 'grow-0',
+  'flex-grow: 1': 'grow',
+  'flex-shrink: 0': 'shrink-0',
+  'flex-shrink: 1': 'shrink',
+  'order: -1': '-order-1',
+  'order: 0': 'order-none',
+  'order: 1': 'order-1',
+  'order: 2': 'order-2',
+  'order: 9999': 'order-last',
+  'order: -9999': 'order-first',
+
+  'align-items: flex-start': 'items-start',
+  'align-items: flex-end': 'items-end',
   'align-items: center': 'items-center',
+  'align-items: baseline': 'items-baseline',
+  'align-items: stretch': 'items-stretch',
+  'align-self: auto': 'self-auto',
+  'align-self: flex-start': 'self-start',
+  'align-self: flex-end': 'self-end',
+  'align-self: center': 'self-center',
+  'align-self: stretch': 'self-stretch',
+  'align-self: baseline': 'self-baseline',
+  'align-content: flex-start': 'content-start',
+  'align-content: flex-end': 'content-end',
+  'align-content: center': 'content-center',
+  'align-content: space-between': 'content-between',
+  'align-content: space-around': 'content-around',
+  'align-content: space-evenly': 'content-evenly',
+
+  'justify-content: flex-start': 'justify-start',
+  'justify-content: flex-end': 'justify-end',
   'justify-content: center': 'justify-center',
   'justify-content: space-between': 'justify-between',
-  'justify-content: flex-end': 'justify-end',
-  'flex-wrap: wrap': 'flex-wrap',
+  'justify-content: space-around': 'justify-around',
+  'justify-content: space-evenly': 'justify-evenly',
+  'justify-items: start': 'justify-items-start',
+  'justify-items: end': 'justify-items-end',
+  'justify-items: center': 'justify-items-center',
+  'justify-items: stretch': 'justify-items-stretch',
+  'justify-self: auto': 'justify-self-auto',
+  'justify-self: start': 'justify-self-start',
+  'justify-self: end': 'justify-self-end',
+  'justify-self: center': 'justify-self-center',
+  'justify-self: stretch': 'justify-self-stretch',
+
+  'place-content: center': 'place-content-center',
+  'place-items: center': 'place-items-center',
+  'place-self: center': 'place-self-center',
+
+  'grid-template-columns: repeat(1, minmax(0, 1fr))': 'grid-cols-1',
+  'grid-template-columns: repeat(2, minmax(0, 1fr))': 'grid-cols-2',
+  'grid-template-columns: repeat(3, minmax(0, 1fr))': 'grid-cols-3',
+  'grid-template-columns: repeat(4, minmax(0, 1fr))': 'grid-cols-4',
+  'grid-template-columns: repeat(6, minmax(0, 1fr))': 'grid-cols-6',
+  'grid-template-columns: repeat(12, minmax(0, 1fr))': 'grid-cols-12',
+  'grid-template-columns: none': 'grid-cols-none',
+  'grid-template-rows: repeat(1, minmax(0, 1fr))': 'grid-rows-1',
+  'grid-template-rows: repeat(2, minmax(0, 1fr))': 'grid-rows-2',
+  'grid-template-rows: repeat(3, minmax(0, 1fr))': 'grid-rows-3',
+  'grid-template-rows: none': 'grid-rows-none',
+  'grid-auto-flow: row': 'grid-flow-row',
+  'grid-auto-flow: column': 'grid-flow-col',
+  'grid-auto-flow: dense': 'grid-flow-dense',
+  'grid-column: span 1 / span 1': 'col-span-1',
+  'grid-column: span 2 / span 2': 'col-span-2',
+  'grid-column: span 3 / span 3': 'col-span-3',
+  'grid-column: span 4 / span 4': 'col-span-4',
+  'grid-column: span 6 / span 6': 'col-span-6',
+  'grid-column: 1 / -1': 'col-span-full',
+
+  'position: static': 'static',
+  'position: relative': 'relative',
+  'position: absolute': 'absolute',
+  'position: fixed': 'fixed',
+  'position: sticky': 'sticky',
+
+  'top: 0': 'top-0',
+  'right: 0': 'right-0',
+  'bottom: 0': 'bottom-0',
+  'left: 0': 'left-0',
+  'inset: 0': 'inset-0',
+  'top: auto': 'top-auto',
+  'right: auto': 'right-auto',
+  'bottom: auto': 'bottom-auto',
+  'left: auto': 'left-auto',
+
+  'z-index: 0': 'z-0',
+  'z-index: 10': 'z-10',
+  'z-index: 20': 'z-20',
+  'z-index: 30': 'z-30',
+  'z-index: 40': 'z-40',
+  'z-index: 50': 'z-50',
+  'z-index: auto': 'z-auto',
+
+  'width: 100%': 'w-full',
+  'width: auto': 'w-auto',
+  'width: 100vw': 'w-screen',
+  'width: min-content': 'w-min',
+  'width: max-content': 'w-max',
+  'width: fit-content': 'w-fit',
+  'height: 100%': 'h-full',
+  'height: auto': 'h-auto',
+  'height: 100vh': 'h-screen',
+  'height: min-content': 'h-min',
+  'height: max-content': 'h-max',
+  'height: fit-content': 'h-fit',
+  'min-width: 0': 'min-w-0',
+  'min-width: 100%': 'min-w-full',
+  'min-width: min-content': 'min-w-min',
+  'min-width: max-content': 'min-w-max',
+  'min-height: 0': 'min-h-0',
+  'min-height: 100%': 'min-h-full',
+  'min-height: 100vh': 'min-h-screen',
+  'max-width: none': 'max-w-none',
+  'max-width: 100%': 'max-w-full',
+  'max-height: none': 'max-h-none',
+  'max-height: 100%': 'max-h-full',
+  'max-height: 100vh': 'max-h-screen',
+
+  'overflow: hidden': 'overflow-hidden',
+  'overflow: auto': 'overflow-auto',
+  'overflow: scroll': 'overflow-scroll',
+  'overflow: visible': 'overflow-visible',
+  'overflow-x: hidden': 'overflow-x-hidden',
+  'overflow-x: auto': 'overflow-x-auto',
+  'overflow-x: scroll': 'overflow-x-scroll',
+  'overflow-y: hidden': 'overflow-y-hidden',
+  'overflow-y: auto': 'overflow-y-auto',
+  'overflow-y: scroll': 'overflow-y-scroll',
+
+  'font-weight: 100': 'font-thin',
+  'font-weight: 200': 'font-extralight',
+  'font-weight: 300': 'font-light',
   'font-weight: 400': 'font-normal',
   'font-weight: 500': 'font-medium',
   'font-weight: 600': 'font-semibold',
   'font-weight: 700': 'font-bold',
   'font-weight: 800': 'font-extrabold',
   'font-weight: 900': 'font-black',
-  'text-align: center': 'text-center',
+  'font-style: italic': 'italic',
+  'font-style: normal': 'not-italic',
+  'font-size: 0.75rem': 'text-xs',
+  'font-size: 12px': 'text-xs',
+  'font-size: 0.875rem': 'text-sm',
+  'font-size: 14px': 'text-sm',
+  'font-size: 1rem': 'text-base',
+  'font-size: 16px': 'text-base',
+  'font-size: 1.125rem': 'text-lg',
+  'font-size: 18px': 'text-lg',
+  'font-size: 1.25rem': 'text-xl',
+  'font-size: 20px': 'text-xl',
+  'font-size: 1.5rem': 'text-2xl',
+  'font-size: 24px': 'text-2xl',
+  'font-size: 1.875rem': 'text-3xl',
+  'font-size: 30px': 'text-3xl',
+  'font-size: 2.25rem': 'text-4xl',
+  'font-size: 36px': 'text-4xl',
+  'font-size: 3rem': 'text-5xl',
+  'font-size: 48px': 'text-5xl',
+  'font-size: 3.75rem': 'text-6xl',
+
   'text-align: left': 'text-left',
+  'text-align: center': 'text-center',
   'text-align: right': 'text-right',
+  'text-align: justify': 'text-justify',
   'text-transform: uppercase': 'uppercase',
   'text-transform: lowercase': 'lowercase',
   'text-transform: capitalize': 'capitalize',
-  'overflow: hidden': 'overflow-hidden',
-  'overflow: auto': 'overflow-auto',
-  'position: relative': 'relative',
-  'position: absolute': 'absolute',
-  'position: fixed': 'fixed',
-  'position: sticky': 'sticky',
-  'cursor: pointer': 'cursor-pointer',
-  'cursor: default': 'cursor-default',
-  'opacity: 0': 'opacity-0',
-  'opacity: 0.5': 'opacity-50',
-  'opacity: 1': 'opacity-100',
+  'text-transform: none': 'normal-case',
+  'text-decoration: underline': 'underline',
+  'text-decoration: line-through': 'line-through',
+  'text-decoration: none': 'no-underline',
+  'text-decoration-line: underline': 'underline',
+  'text-decoration-line: line-through': 'line-through',
+  'text-decoration-line: none': 'no-underline',
+  'text-overflow: ellipsis': 'text-ellipsis',
+  'text-overflow: clip': 'text-clip',
+  'white-space: nowrap': 'whitespace-nowrap',
+  'white-space: normal': 'whitespace-normal',
+  'white-space: pre': 'whitespace-pre',
+  'white-space: pre-wrap': 'whitespace-pre-wrap',
+  'white-space: pre-line': 'whitespace-pre-line',
+  'white-space: break-spaces': 'whitespace-break-spaces',
+  'word-break: break-all': 'break-all',
+  'word-break: break-word': 'break-words',
+  'word-break: normal': 'break-normal',
+  'overflow-wrap: break-word': 'break-words',
+  'line-height: 1': 'leading-none',
+  'line-height: 1.25': 'leading-tight',
+  'line-height: 1.375': 'leading-snug',
+  'line-height: 1.5': 'leading-normal',
+  'line-height: 1.625': 'leading-relaxed',
+  'line-height: 2': 'leading-loose',
+  'letter-spacing: -0.05em': 'tracking-tighter',
+  'letter-spacing: -0.025em': 'tracking-tight',
+  'letter-spacing: 0': 'tracking-normal',
+  'letter-spacing: 0.025em': 'tracking-wide',
+  'letter-spacing: 0.05em': 'tracking-wider',
+  'letter-spacing: 0.1em': 'tracking-widest',
+  'vertical-align: baseline': 'align-baseline',
+  'vertical-align: top': 'align-top',
+  'vertical-align: middle': 'align-middle',
+  'vertical-align: bottom': 'align-bottom',
+  'vertical-align: text-top': 'align-text-top',
+  'vertical-align: text-bottom': 'align-text-bottom',
+
+  'list-style-type: none': 'list-none',
+  'list-style-type: disc': 'list-disc',
+  'list-style-type: decimal': 'list-decimal',
+  'list-style-position: inside': 'list-inside',
+  'list-style-position: outside': 'list-outside',
+
+  'border-radius: 0': 'rounded-none',
+  'border-radius: 0px': 'rounded-none',
+  'border-radius: 2px': 'rounded-sm',
   'border-radius: 4px': 'rounded',
+  'border-radius: 6px': 'rounded-md',
   'border-radius: 8px': 'rounded-lg',
   'border-radius: 12px': 'rounded-xl',
   'border-radius: 16px': 'rounded-2xl',
+  'border-radius: 24px': 'rounded-3xl',
   'border-radius: 9999px': 'rounded-full',
-  'border-radius: 0': 'rounded-none',
-  'width: 100%': 'w-full',
-  'height: 100%': 'h-full',
-  'min-height: 100vh': 'min-h-screen',
+  'border-radius: 50%': 'rounded-full',
+  'border-style: solid': 'border-solid',
+  'border-style: dashed': 'border-dashed',
+  'border-style: dotted': 'border-dotted',
+  'border-style: double': 'border-double',
+  'border-style: none': 'border-none',
+  'border-width: 0': 'border-0',
+  'border-width: 0px': 'border-0',
+  'border-width: 1px': 'border',
+  'border-width: 2px': 'border-2',
+  'border-width: 4px': 'border-4',
+  'border-width: 8px': 'border-8',
+  'border-collapse: collapse': 'border-collapse',
+  'border-collapse: separate': 'border-separate',
+
+  'outline: none': 'outline-none',
+  'outline: 0': 'outline-none',
+  'outline-style: none': 'outline-none',
+
+  'box-sizing: border-box': 'box-border',
+  'box-sizing: content-box': 'box-content',
+
+  'cursor: pointer': 'cursor-pointer',
+  'cursor: default': 'cursor-default',
+  'cursor: wait': 'cursor-wait',
+  'cursor: text': 'cursor-text',
+  'cursor: move': 'cursor-move',
+  'cursor: not-allowed': 'cursor-not-allowed',
+  'cursor: grab': 'cursor-grab',
+  'cursor: grabbing': 'cursor-grabbing',
+  'cursor: crosshair': 'cursor-crosshair',
+  'cursor: none': 'cursor-none',
+
+  'pointer-events: none': 'pointer-events-none',
+  'pointer-events: auto': 'pointer-events-auto',
+  'user-select: none': 'select-none',
+  'user-select: text': 'select-text',
+  'user-select: all': 'select-all',
+  'user-select: auto': 'select-auto',
+  '-webkit-user-select: none': 'select-none',
+
+  'visibility: visible': 'visible',
+  'visibility: hidden': 'invisible',
+  'visibility: collapse': 'collapse',
+
+  'opacity: 0': 'opacity-0',
+  'opacity: 0.05': 'opacity-5',
+  'opacity: 0.1': 'opacity-10',
+  'opacity: 0.2': 'opacity-20',
+  'opacity: 0.25': 'opacity-25',
+  'opacity: 0.3': 'opacity-30',
+  'opacity: 0.4': 'opacity-40',
+  'opacity: 0.5': 'opacity-50',
+  'opacity: 0.6': 'opacity-60',
+  'opacity: 0.7': 'opacity-70',
+  'opacity: 0.75': 'opacity-75',
+  'opacity: 0.8': 'opacity-80',
+  'opacity: 0.9': 'opacity-90',
+  'opacity: 0.95': 'opacity-95',
+  'opacity: 1': 'opacity-100',
+
+  'transition-property: none': 'transition-none',
+  'transition-property: all': 'transition-all',
+  'transition-timing-function: linear': 'ease-linear',
+  'transition-timing-function: ease-in': 'ease-in',
+  'transition-timing-function: ease-out': 'ease-out',
+  'transition-timing-function: ease-in-out': 'ease-in-out',
+  'transition-duration: 75ms': 'duration-75',
+  'transition-duration: 100ms': 'duration-100',
+  'transition-duration: 150ms': 'duration-150',
+  'transition-duration: 200ms': 'duration-200',
+  'transition-duration: 300ms': 'duration-300',
+  'transition-duration: 500ms': 'duration-500',
+  'transition-duration: 700ms': 'duration-700',
+  'transition-duration: 1000ms': 'duration-1000',
+  'transition-delay: 75ms': 'delay-75',
+  'transition-delay: 100ms': 'delay-100',
+  'transition-delay: 150ms': 'delay-150',
+  'transition-delay: 200ms': 'delay-200',
+  'transition-delay: 300ms': 'delay-300',
+  'transition-delay: 500ms': 'delay-500',
+
+  'transform: none': 'transform-none',
+  'transform-origin: center': 'origin-center',
+  'transform-origin: top': 'origin-top',
+  'transform-origin: top right': 'origin-top-right',
+  'transform-origin: right': 'origin-right',
+  'transform-origin: bottom right': 'origin-bottom-right',
+  'transform-origin: bottom': 'origin-bottom',
+  'transform-origin: bottom left': 'origin-bottom-left',
+  'transform-origin: left': 'origin-left',
+  'transform-origin: top left': 'origin-top-left',
+
+  'resize: none': 'resize-none',
+  'resize: both': 'resize',
+  'resize: vertical': 'resize-y',
+  'resize: horizontal': 'resize-x',
+
+  'object-fit: contain': 'object-contain',
+  'object-fit: cover': 'object-cover',
+  'object-fit: fill': 'object-fill',
+  'object-fit: none': 'object-none',
+  'object-fit: scale-down': 'object-scale-down',
+  'object-position: center': 'object-center',
+  'object-position: top': 'object-top',
+  'object-position: bottom': 'object-bottom',
+
+  'background-color: transparent': 'bg-transparent',
+  'background-color: currentColor': 'bg-current',
+  'background-size: cover': 'bg-cover',
+  'background-size: contain': 'bg-contain',
+  'background-size: auto': 'bg-auto',
+  'background-repeat: no-repeat': 'bg-no-repeat',
+  'background-repeat: repeat': 'bg-repeat',
+  'background-repeat: repeat-x': 'bg-repeat-x',
+  'background-repeat: repeat-y': 'bg-repeat-y',
+  'background-position: center': 'bg-center',
+  'background-position: top': 'bg-top',
+  'background-position: bottom': 'bg-bottom',
+  'background-position: left': 'bg-left',
+  'background-position: right': 'bg-right',
+  'background-attachment: fixed': 'bg-fixed',
+  'background-attachment: local': 'bg-local',
+  'background-attachment: scroll': 'bg-scroll',
+
+  'mix-blend-mode: normal': 'mix-blend-normal',
+  'mix-blend-mode: multiply': 'mix-blend-multiply',
+  'mix-blend-mode: screen': 'mix-blend-screen',
+  'mix-blend-mode: overlay': 'mix-blend-overlay',
+
+  'isolation: isolate': 'isolate',
+  'isolation: auto': 'isolation-auto',
+
+  'appearance: none': 'appearance-none',
+  '-webkit-appearance: none': 'appearance-none',
+
+  'box-decoration-break: clone': 'box-decoration-clone',
+  'box-decoration-break: slice': 'box-decoration-slice',
+
+  'float: left': 'float-left',
+  'float: right': 'float-right',
+  'float: none': 'float-none',
+  'clear: left': 'clear-left',
+  'clear: right': 'clear-right',
+  'clear: both': 'clear-both',
+  'clear: none': 'clear-none',
+
+  'table-layout: auto': 'table-auto',
+  'table-layout: fixed': 'table-fixed',
+
+  'content: none': 'content-none',
+
+  'will-change: auto': 'will-change-auto',
+  'will-change: scroll-position': 'will-change-scroll',
+  'will-change: contents': 'will-change-contents',
+  'will-change: transform': 'will-change-transform',
+
+  'scroll-behavior: auto': 'scroll-auto',
+  'scroll-behavior: smooth': 'scroll-smooth',
+
+  'touch-action: none': 'touch-none',
+  'touch-action: auto': 'touch-auto',
+  'touch-action: manipulation': 'touch-manipulation',
+  'touch-action: pan-x': 'touch-pan-x',
+  'touch-action: pan-y': 'touch-pan-y',
+
+  'accent-color: auto': 'accent-auto',
+  'caret-color: transparent': 'caret-transparent',
+
+  'columns: 1': 'columns-1',
+  'columns: 2': 'columns-2',
+  'columns: 3': 'columns-3',
+  'columns: 4': 'columns-4',
+
+  'break-after: auto': 'break-after-auto',
+  'break-after: avoid': 'break-after-avoid',
+  'break-before: auto': 'break-before-auto',
+  'break-before: avoid': 'break-before-avoid',
+  'break-inside: auto': 'break-inside-auto',
+  'break-inside: avoid': 'break-inside-avoid',
+
+  'hyphens: none': 'hyphens-none',
+  'hyphens: manual': 'hyphens-manual',
+  'hyphens: auto': 'hyphens-auto',
 };
 
+const FALLBACK_PREFIX: [string, string][] = [
+  ['padding-top:', 'pt'],
+  ['padding-right:', 'pr'],
+  ['padding-bottom:', 'pb'],
+  ['padding-left:', 'pl'],
+  ['padding-inline:', 'px'],
+  ['padding-block:', 'py'],
+  ['padding:', 'p'],
+  ['margin-top:', 'mt'],
+  ['margin-right:', 'mr'],
+  ['margin-bottom:', 'mb'],
+  ['margin-left:', 'ml'],
+  ['margin-inline:', 'mx'],
+  ['margin-block:', 'my'],
+  ['margin:', 'm'],
+  ['gap:', 'gap'],
+  ['row-gap:', 'gap-y'],
+  ['column-gap:', 'gap-x'],
+  ['font-size:', 'text'],
+  ['color:', 'text'],
+  ['background-color:', 'bg'],
+  ['background:', 'bg'],
+  ['border-color:', 'border'],
+  ['border-width:', 'border'],
+  ['border-radius:', 'rounded'],
+  ['width:', 'w'],
+  ['height:', 'h'],
+  ['min-width:', 'min-w'],
+  ['min-height:', 'min-h'],
+  ['max-width:', 'max-w'],
+  ['max-height:', 'max-h'],
+  ['top:', 'top'],
+  ['right:', 'right'],
+  ['bottom:', 'bottom'],
+  ['left:', 'left'],
+  ['inset:', 'inset'],
+  ['z-index:', 'z'],
+  ['line-height:', 'leading'],
+  ['letter-spacing:', 'tracking'],
+  ['border-top-left-radius:', 'rounded-tl'],
+  ['border-top-right-radius:', 'rounded-tr'],
+  ['border-bottom-left-radius:', 'rounded-bl'],
+  ['border-bottom-right-radius:', 'rounded-br'],
+  ['outline-offset:', 'outline-offset'],
+  ['text-indent:', 'indent'],
+  ['transition-duration:', 'duration'],
+  ['transition-delay:', 'delay'],
+  ['opacity:', 'opacity'],
+  ['columns:', 'columns'],
+  ['aspect-ratio:', 'aspect'],
+  ['accent-color:', 'accent'],
+  ['caret-color:', 'caret'],
+  ['scroll-margin:', 'scroll-m'],
+  ['scroll-padding:', 'scroll-p'],
+  ['stroke-width:', 'stroke'],
+  ['fill:', 'fill'],
+  ['stroke:', 'stroke'],
+];
+
+function normalizeLine(raw: string): string {
+  const cleaned = raw.trim().replace(/;$/, '').trim();
+  const colonIdx = cleaned.indexOf(':');
+  if (colonIdx === -1) return cleaned;
+  const prop = cleaned.slice(0, colonIdx).trim();
+  const val = cleaned.slice(colonIdx + 1).trim();
+  return `${prop}: ${val}`;
+}
+
+function HighlightedCSSInput({ value, onChange }: { value: string, onChange: (val: string) => void }) {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const highlight = (code: string) => {
+    return code.split('\n').map((line, i) => {
+      const parts = line.split(/(:\s*)/);
+      if (parts.length >= 3) {
+        const prop = parts[0];
+        const colon = parts[1];
+        const rest = parts.slice(2).join('');
+        
+        let val = rest;
+        let semi = '';
+        if (rest.endsWith(';')) {
+          val = rest.slice(0, -1);
+          semi = ';';
+        }
+
+        return (
+          <div key={i} className="min-h-[1.5em]">
+            <span style={{ color: '#56b6c2' }}>{prop}</span>
+            <span style={{ color: '#abb2bf' }}>{colon}</span>
+            <span style={{ color: '#e5c07b' }}>{val}</span>
+            <span style={{ color: '#abb2bf' }}>{semi}</span>
+          </div>
+        );
+      }
+      return <div key={i} className="min-h-[1.5em] text-[#abb2bf]">{line || ' '}</div>;
+    });
+  };
+
+  const handleScroll = () => {
+    if (textareaRef.current) {
+      const bg = textareaRef.current.previousElementSibling as HTMLDivElement;
+      if (bg) bg.scrollTop = textareaRef.current.scrollTop;
+    }
+  };
+
+  return (
+    <div className="relative w-full h-[220px]">
+      <div 
+        className="absolute inset-0 p-4 font-mono text-sm leading-relaxed pointer-events-none overflow-hidden whitespace-pre"
+        style={{ color: '#abb2bf' }}
+      >
+        {highlight(value)}
+      </div>
+      <textarea
+        ref={textareaRef}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        onScroll={handleScroll}
+        className="absolute inset-0 w-full h-full p-4 font-mono text-sm leading-relaxed resize-none outline-none opacity-100"
+        style={{ 
+          background: 'transparent',
+          color: 'transparent',
+          caretColor: '#fff',
+          whiteSpace: 'pre'
+        }}
+        spellCheck={false}
+      />
+    </div>
+  );
+}
+
 function TailwindConverter() {
-  const [input, setInput] = useState('display: flex;\nalign-items: center;\nfont-weight: 600;\nborder-radius: 8px;');
+  const [input, setInput] = useState('display: flex;\nalign-items: center;\nflex-direction: column;\nfont-weight: 600;\nborder-radius: 8px;\ngap: 16px;');
   const [copied, setCopied] = useState(false);
 
   const convert = useCallback((css: string) => {
-    const lines = css.split('\n').map((l) => l.trim().replace(/;$/, ''));
+    const lines = css.split('\n').map(normalizeLine);
     const classes: string[] = [];
     const unknowns: string[] = [];
+
     for (const line of lines) {
       if (!line) continue;
-      const match = cssToTailwind[line];
-      if (match) classes.push(match);
-      else if (line.startsWith('padding:')) {
-        const v = line.replace('padding:', '').trim();
-        classes.push(`p-[${v}]`);
-      } else if (line.startsWith('margin:')) {
-        classes.push(`m-[${line.replace('margin:', '').trim()}]`);
-      } else if (line.startsWith('font-size:')) {
-        classes.push(`text-[${line.replace('font-size:', '').trim()}]`);
-      } else if (line.startsWith('color:')) {
-        classes.push(`text-[${line.replace('color:', '').trim()}]`);
-      } else if (line.startsWith('background')) {
-        classes.push(`bg-[${line.split(':').slice(1).join(':').trim()}]`);
-      } else if (line.startsWith('gap:')) {
-        classes.push(`gap-[${line.replace('gap:', '').trim()}]`);
-      } else if (line) {
+
+      const exact = cssToTailwind[line];
+      if (exact) {
+        classes.push(exact);
+        continue;
+      }
+
+      let handled = false;
+      for (const [prefix, twPrefix] of FALLBACK_PREFIX) {
+        const normalizedPrefix = prefix.endsWith(':') ? prefix : prefix;
+        if (line.startsWith(normalizedPrefix.replace(/:$/, '') + ':')) {
+          const val = line.slice(line.indexOf(':') + 1).trim();
+          classes.push(`${twPrefix}-[${val}]`);
+          handled = true;
+          break;
+        }
+      }
+
+      if (!handled && line.startsWith('box-shadow:')) {
+        const val = line.slice(line.indexOf(':') + 1).trim();
+        if (val === 'none') classes.push('shadow-none');
+        else classes.push(`shadow-[${val.replace(/\s+/g, '_')}]`);
+        handled = true;
+      }
+
+      if (!handled && line.startsWith('transform:')) {
+        const val = line.slice(line.indexOf(':') + 1).trim();
+        if (val === 'none') classes.push('transform-none');
+        else classes.push(`[transform:${val.replace(/\s+/g, '_')}]`);
+        handled = true;
+      }
+
+      if (!handled && line.startsWith('transition:')) {
+        const val = line.slice(line.indexOf(':') + 1).trim();
+        if (val === 'none') classes.push('transition-none');
+        else if (val === 'all') classes.push('transition-all');
+        else classes.push(`[transition:${val.replace(/\s+/g, '_')}]`);
+        handled = true;
+      }
+
+      if (!handled && line.startsWith('animation:')) {
+        const val = line.slice(line.indexOf(':') + 1).trim();
+        if (val === 'none') classes.push('animate-none');
+        else classes.push(`[animation:${val.replace(/\s+/g, '_')}]`);
+        handled = true;
+      }
+
+      if (!handled) {
         unknowns.push(`/* ${line} */`);
       }
     }
+
     return { classes: classes.join(' '), unknowns };
   }, []);
 
@@ -383,42 +943,85 @@ function TailwindConverter() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
       <div>
-        <p className="text-xs text-white/40 mb-2">Paste CSS here</p>
-        <textarea value={input} onChange={(e) => setInput(e.target.value)} rows={10}
-          className="w-full p-3 rounded-xl text-xs font-mono text-white/70 outline-none resize-none"
-          style={{ background: '#0D0D0D', border: '1px solid #2A2A2A' }} />
+        <CodeWindow title="styles.css">
+          <HighlightedCSSInput value={input} onChange={setInput} />
+        </CodeWindow>
       </div>
       <div>
-        <p className="text-xs text-white/40 mb-2">Tailwind classes</p>
-        <div className="relative rounded-xl overflow-hidden" style={{ background: '#0D0D0D', border: '1px solid #2A2A2A', minHeight: 240 }}>
-          <pre className="p-3 text-[11px] font-mono text-[#a78bfa] leading-relaxed whitespace-pre-wrap">{output || '— output appears here —'}</pre>
-          <button onClick={() => { navigator.clipboard.writeText(classes).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); }); }}
-            className="absolute top-2 right-2 px-3 py-1 rounded-lg text-xs font-semibold transition-all"
-            style={{ background: copied ? 'rgba(108,99,255,0.2)' : 'rgba(255,255,255,0.06)', color: copied ? '#a78bfa' : 'rgba(255,255,255,0.5)' }}>
-            {copied ? '✓ Copied' : 'Copy'}
-          </button>
-        </div>
-        <p className="text-[10px] text-white/25 mt-2">Common properties auto-converted. Custom values use arbitrary syntax.</p>
+        <CodeWindow title="tailwind-classes.txt" onCopy={() => { navigator.clipboard.writeText(classes).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); }); }} copied={copied}>
+          <pre className="p-4 text-sm font-mono text-white/80 leading-relaxed whitespace-pre-wrap" style={{ minHeight: 220 }}>{output || '— output appears here —'}</pre>
+        </CodeWindow>
+        <p className="text-xs text-white/30 mt-3 ml-1">Common properties auto-converted. Custom values use arbitrary syntax.</p>
       </div>
     </div>
   );
 }
 
-// ————— Main Page —————
-const TOOLS: { id: ActiveTool; label: string; icon: string; desc: string }[] = [
-  { id: 'shadow', label: 'Box Shadow', icon: '🌑', desc: 'X, Y, blur, spread, color' },
-  { id: 'gradient', label: 'Gradient', icon: '🌈', desc: 'Linear & radial gradients' },
-  { id: 'radius', label: 'Border Radius', icon: '⬜', desc: 'Per-corner control' },
-  { id: 'animation', label: 'CSS Animation', icon: '✨', desc: 'Keyframe generator' },
-  { id: 'tailwind', label: 'CSS → Tailwind', icon: '⚡', desc: 'Convert CSS to classes' },
+const TOOL_ICONS: Record<ActiveTool, React.ReactNode> = {
+  shadow: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="14" height="14" rx="3" />
+      <path d="M21 7v10a4 4 0 0 1-4 4H7" />
+    </svg>
+  ),
+  gradient: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 3v18" />
+      <path d="M3 12a9 9 0 0 0 9 9" opacity="0.4" />
+    </svg>
+  ),
+  radius: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 9V5a2 2 0 0 1 2-2h4" />
+      <path d="M15 3h4a2 2 0 0 1 2 2v4" />
+      <path d="M21 15v4a2 2 0 0 1-2 2h-4" />
+      <path d="M9 21H5a2 2 0 0 1-2-2v-4" />
+    </svg>
+  ),
+  animation: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2v4" />
+      <path d="M12 18v4" />
+      <path d="M4.93 4.93l2.83 2.83" />
+      <path d="M16.24 16.24l2.83 2.83" />
+      <path d="M2 12h4" />
+      <path d="M18 12h4" />
+      <path d="M4.93 19.07l2.83-2.83" />
+      <path d="M16.24 7.76l2.83-2.83" />
+    </svg>
+  ),
+  tailwind: (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="16 18 22 12 16 6" />
+      <polyline points="8 6 2 12 8 18" />
+      <line x1="14" y1="4" x2="10" y2="20" />
+    </svg>
+  ),
+};
+
+const TOOL_COLORS: Record<ActiveTool, string> = {
+  shadow: '#a78bfa',
+  gradient: '#f472b6',
+  radius: '#60a5fa',
+  animation: '#fbbf24',
+  tailwind: '#B8FB3C',
+};
+
+const TOOLS: { id: ActiveTool; label: string; desc: string }[] = [
+  { id: 'shadow', label: 'Box Shadow', desc: 'X, Y, blur, spread, color' },
+  { id: 'gradient', label: 'Gradient', desc: 'Linear & radial gradients' },
+  { id: 'radius', label: 'Border Radius', desc: 'Per-corner control' },
+  { id: 'animation', label: 'CSS Animation', desc: 'Keyframe generator' },
+  { id: 'tailwind', label: 'CSS → Tailwind', desc: 'Convert CSS to classes' },
 ];
 
 export default function ToolkitPage() {
   const router = useRouter();
   const [active, setActive] = useState<ActiveTool>('shadow');
   const tool = TOOLS.find((t) => t.id === active)!;
+  const toolColor = TOOL_COLORS[active];
 
-  // Read ?tool= query param and activate the correct tab
   useEffect(() => {
     const q = router.query.tool as string | undefined;
     if (q && VALID_TOOLS.includes(q as ActiveTool)) {
@@ -434,46 +1037,105 @@ export default function ToolkitPage() {
         path="/toolkit"
         keywords={['box shadow generator', 'gradient generator', 'border radius generator', 'CSS animation generator', 'tailwind converter']}
       />
-      <main className="min-h-screen" style={{ background: '#0D0D0D' }}>
-        <section className="container px-4 sm:px-6 pt-28 pb-8">
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            className="text-3xl sm:text-4xl font-bold text-white mb-2">
-            Dev <span style={{ color: '#B8FB3C' }}>Toolkit</span>
-          </motion.h1>
-          <p className="text-white/40 text-sm">CSS generators and utilities for frontend developers.</p>
+      <main className="min-h-screen" style={{ background: '#0A0A0F' }}>
+        <section className="relative overflow-hidden">
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: `radial-gradient(ellipse 60% 50% at 50% 0%, ${toolColor}08 0%, transparent 70%)`,
+              transition: 'background 0.5s ease',
+            }}
+          />
+          <div className="container px-4 sm:px-6 pt-28 pb-6 relative">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+              <p className="text-[11px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: toolColor }}>
+                Developer Tools
+              </p>
+              <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">
+                Dev <span style={{ color: '#B8FB3C' }}>Toolkit</span>
+              </h1>
+              <p className="text-white/35 text-sm max-w-md">
+                Production-ready CSS generators and conversion utilities for modern frontend workflows.
+              </p>
+            </motion.div>
+          </div>
         </section>
 
-        <section className="container px-4 sm:px-6 pb-20">
-          {/* Tool tabs */}
-          <div className="flex flex-wrap gap-2 mb-6">
-            {TOOLS.map((t) => (
-              <button key={t.id} onClick={() => setActive(t.id)}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all border"
-                style={{ background: active === t.id ? 'rgba(184,251,60,0.1)' : 'rgba(255,255,255,0.03)', borderColor: active === t.id ? 'rgba(184,251,60,0.35)' : '#2A2A2A', color: active === t.id ? '#B8FB3C' : 'rgba(255,255,255,0.45)' }}>
-                <span>{t.icon}</span>
-                <span className="hidden sm:inline">{t.label}</span>
-              </button>
-            ))}
+        <section className="container px-4 sm:px-6 pb-24">
+          <div className="flex flex-wrap gap-2 mb-8">
+            {TOOLS.map((t) => {
+              const isActive = active === t.id;
+              const color = TOOL_COLORS[t.id];
+              return (
+                <button
+                  key={t.id}
+                  onClick={() => setActive(t.id)}
+                  className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 border group"
+                  style={{
+                    background: isActive ? `${color}12` : 'rgba(255,255,255,0.02)',
+                    borderColor: isActive ? `${color}40` : 'rgba(255,255,255,0.06)',
+                    color: isActive ? color : 'rgba(255,255,255,0.4)',
+                  }}
+                >
+                  <span
+                    className="flex items-center justify-center w-7 h-7 rounded-lg transition-all duration-200"
+                    style={{
+                      background: isActive ? `${color}18` : 'rgba(255,255,255,0.04)',
+                      color: isActive ? color : 'rgba(255,255,255,0.35)',
+                    }}
+                  >
+                    {TOOL_ICONS[t.id]}
+                  </span>
+                  <span className="hidden sm:inline">{t.label}</span>
+                </button>
+              );
+            })}
           </div>
 
-          {/* Tool Panel */}
-          <motion.div key={active} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}
-            className="rounded-2xl border p-5" style={{ background: '#151515', borderColor: '#2A2A2A' }}>
-            <div className="flex items-center gap-3 mb-5 pb-4 border-b" style={{ borderColor: '#2A2A2A' }}>
-              <span className="text-2xl">{tool.icon}</span>
+          <motion.div
+            key={active}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+            className="rounded-2xl border overflow-hidden"
+            style={{
+              background: 'rgba(18,18,24,0.8)',
+              borderColor: `${toolColor}15`,
+              boxShadow: `0 0 80px ${toolColor}05, 0 4px 32px rgba(0,0,0,0.3)`,
+            }}
+          >
+            <div
+              className="flex items-center gap-3.5 px-6 py-4 border-b"
+              style={{ borderColor: 'rgba(255,255,255,0.05)' }}
+            >
+              <div
+                className="w-9 h-9 rounded-xl flex items-center justify-center"
+                style={{
+                  background: `${toolColor}15`,
+                  color: toolColor,
+                }}
+              >
+                {TOOL_ICONS[active]}
+              </div>
               <div>
-                <h2 className="text-base font-bold text-white">{tool.label}</h2>
-                <p className="text-xs text-white/40">{tool.desc}</p>
+                <h2 className="text-[15px] font-bold text-white leading-tight">{tool.label}</h2>
+                <p className="text-[11px] text-white/35 mt-0.5">{tool.desc}</p>
               </div>
             </div>
-            {active === 'shadow' && <ShadowTool />}
-            {active === 'gradient' && <GradientTool />}
-            {active === 'radius' && <RadiusTool />}
-            {active === 'animation' && <AnimationTool />}
-            {active === 'tailwind' && <TailwindConverter />}
+
+            <div className="p-5 sm:p-6">
+              {active === 'shadow' && <ShadowTool />}
+              {active === 'gradient' && <GradientTool />}
+              {active === 'radius' && <RadiusTool />}
+              {active === 'animation' && <AnimationTool />}
+              {active === 'tailwind' && <TailwindConverter />}
+            </div>
+
+            <div className="h-[2px]" style={{ background: `linear-gradient(to right, transparent, ${toolColor}30, transparent)` }} />
           </motion.div>
         </section>
       </main>
     </>
   );
 }
+

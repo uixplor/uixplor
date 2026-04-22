@@ -6,7 +6,7 @@ import CodeViewerOverlay, { type CodeSection } from '@/components/ui/CodeViewerO
 
 interface NavItem { id:string; name:string; tag:string; description:string; preview:React.ReactNode; html:string; css:string; }
 
-const items: NavItem[] = [
+export const items: NavItem[] = [
   {
     id:'topnav-minimal', name:'Minimal Topbar', tag:'navbar', description:'Clean topbar with logo, nav links, and CTA.',
     preview:(<div style={{background:'#fff',padding:'12px 24px',display:'flex',alignItems:'center',justifyContent:'space-between',borderBottom:'1px solid #e5e7eb',fontFamily:'system-ui'}}>
@@ -485,12 +485,12 @@ export default function Navigation() {
             <div className="px-4 py-3 flex items-center justify-between border-t border-white/6">
               <div className="min-w-0 mr-3"><span className="text-xs font-medium text-white/60 truncate block">{item.name}</span><span className="text-[10px] text-white/25 uppercase tracking-wider">{item.tag}</span></div>
               <button onClick={()=>setSelected(item)} className="shrink-0 px-3.5 py-1.5 rounded-lg text-[11px] font-semibold bg-white/6 text-white/50 border border-white/8 hover:bg-white hover:text-[#0a0a0f] hover:border-white hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(255,255,255,0.18)] transition-all duration-300 cursor-pointer">View Code →</button>
-                      <a
-                        href={`/component/${item.id}?collection=navigation&name=${encodeURIComponent(item.name)}&css=${encodeURIComponent(item.css)}`}
+                      <Link
+                        href={`/component/${item.id}?collection=navigation`}
                         className="relative z-10 px-3.5 py-1.5 rounded-lg text-[11px] font-semibold bg-[#6C63FF]/10 text-[#a78bfa] border border-[#6C63FF]/20 hover:bg-[#6C63FF]/20 hover:border-[#6C63FF]/40 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
                       >
                         Details
-                      </a>
+                      </Link>
             </div>
           </motion.article>))}
         </div>
