@@ -1,73 +1,52 @@
-// UIXplor Service Worker
-// Caches core pages and serves them when offline
-
-const CACHE_NAME = 'uixplor-v1';
-
-// Pages/assets to pre-cache on install
-const PRECACHE_URLS = [
-	'/',
-	'/offline',
-	'/404',
-];
+const CACHE_NAME = 'uixplor-offline-cache-v6';
+const OFFLINE_URL = '/offline';
 
 self.addEventListener('install', (event) => {
-	event.waitUntil(
-		caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS))
-	);
-	self.skipWaiting();
+  self.skipWaiting();
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return Promise.all([
+        cache.add(OFFLINE_URL).catch(() => { }),
+        cache.add('/offline.html').catch(() => { })
+      ]);
+    })
+  );
 });
 
 self.addEventListener('activate', (event) => {
-	event.waitUntil(
-		caches.keys().then((keys) =>
-			Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
-		)
-	);
-	self.clients.claim();
+  event.waitUntil(self.clients.claim());
 });
 
 self.addEventListener('fetch', (event) => {
-	// Only handle GET requests for same-origin navigation
-	if (event.request.method !== 'GET') return;
+  if (event.request.method !== 'GET') return;
 
-	const url = new URL(event.request.url);
+  const url = new URL(event.request.url);
 
-	// For navigation requests (page loads), use network-first with offline fallback
-	if (event.request.mode === 'navigate') {
-		event.respondWith(
-			fetch(event.request)
-				.then((response) => {
-					// Clone and cache successful responses
-					if (response && response.status === 200) {
-						const clone = response.clone();
-						caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
-					}
-					return response;
-				})
-				.catch(() =>
-					// Network failed — serve cached version or /offline page
-					caches.match(event.request).then(
-						(cached) => cached || caches.match('/offline')
-					)
-				)
-		);
-		return;
-	}
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request).catch(async () => {
+        const cache = await caches.open(CACHE_NAME);
+        return (await cache.match(OFFLINE_URL)) || (await cache.match('/offline.html'));
+      })
+    );
+  } else {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          if (!response || !response.ok) {
+            return response;
+          }
 
-	// For static assets (JS, CSS, images): cache-first strategy
-	if (url.origin === self.location.origin) {
-		event.respondWith(
-			caches.match(event.request).then(
-				(cached) =>
-					cached ||
-					fetch(event.request).then((response) => {
-						if (response && response.status === 200) {
-							const clone = response.clone();
-							caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
-						}
-						return response;
-					})
-			)
-		);
-	}
+          if (url.pathname.startsWith('/_next/static/') || event.request.destination === 'font') {
+            const responseClone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseClone));
+          }
+          return response;
+        })
+        .catch(async () => {
+          return await caches.match(event.request);
+        })
+    );
+  }
 });
+

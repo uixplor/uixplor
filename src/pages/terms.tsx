@@ -49,7 +49,7 @@ export default function Terms() {
 						</div>
 					</motion.div>
 
-					<div className="h-px bg-gradient-to-r from-transparent via-white/8 to-transparent mb-12" />
+					<div className="h-px bg-linear-to-r from-transparent via-white/8 to-transparent mb-12" />
 
 					<Section title="1. Acceptance of Terms">
 						<p>By accessing or using UIXplor (&quot;the Website&quot;), you confirm that you are at least 13 years of age and agree to be bound by these Terms & Conditions and our Privacy Policy. These terms apply to all visitors, users, and others who access or use the Website.</p>

@@ -7,7 +7,7 @@ import CodeViewerOverlay, { type CodeSection } from '@/components/ui/CodeViewerO
 
 interface Item { id: string; name: string; tag: string; description: string; css: string; }
 
-const items: Item[] = [
+export const items: Item[] = [
 	{
 		id: 'micro-like-heart', name: 'Like Heart', tag: 'feedback', description: 'Heart icon scales up then bounces on activation — satisfying click.',
 		css: `.heart-btn {\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  width: 40px; height: 40px;\n  border: none;\n  background: none;\n  cursor: pointer;\n  font-size: 22px;\n  transition: transform 0.15s ease;\n}\n.heart-btn:hover { transform: scale(1.15); }\n.heart-btn.active {\n  animation: heart-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);\n}\n@keyframes heart-pop {\n  0% { transform: scale(1); }\n  40% { transform: scale(1.4); }\n  70% { transform: scale(0.9); }\n  100% { transform: scale(1); }\n}`
@@ -120,7 +120,7 @@ export default function Microinteractions() {
 										<span className="px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-white/5 text-white/40 border border-white/6 uppercase tracking-wider">{item.tag}</span>
 										<button onClick={() => setSel(item)} className="relative z-10 px-3.5 py-1.5 rounded-lg text-[11px] font-semibold bg-white/6 text-white/50 border border-white/8 hover:bg-amber-400 hover:text-[#0a0a0f] hover:border-amber-400 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(251,191,36,0.2)] transition-all duration-300 cursor-pointer">View Code →</button>
                       <Link
-                        href={`/component/${item.id}?collection=microinteractions&name=${encodeURIComponent(item.name)}&css=${encodeURIComponent(item.css)}`}
+                        href={`/component/${item.id}?collection=microinteractions`}
                         className="relative z-10 px-3.5 py-1.5 rounded-lg text-[11px] font-semibold bg-[#6C63FF]/10 text-[#a78bfa] border border-[#6C63FF]/20 hover:bg-[#6C63FF]/20 hover:border-[#6C63FF]/40 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
                       >
                         Details

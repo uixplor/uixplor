@@ -135,7 +135,7 @@ export default function Inputs() {
 										<span className="px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-white/5 text-white/40 border border-white/6 uppercase tracking-wider">{item.tag}</span>
 										<button onClick={() => setSel(item)} className="relative z-10 px-3.5 py-1.5 rounded-lg text-[11px] font-semibold bg-white/6 text-white/50 border border-white/8 hover:bg-violet-500 hover:text-white hover:border-violet-500 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(139,92,246,0.2)] transition-all duration-300 cursor-pointer">View Code →</button>
                       <Link
-                        href={`/component/${item.id}?collection=inputs&name=${encodeURIComponent(item.name)}&css=${encodeURIComponent(item.css)}`}
+                        href={`/component/${item.id}?collection=inputs`}
                         className="relative z-10 px-3.5 py-1.5 rounded-lg text-[11px] font-semibold bg-[#6C63FF]/10 text-[#a78bfa] border border-[#6C63FF]/20 hover:bg-[#6C63FF]/20 hover:border-[#6C63FF]/40 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
                       >
                         Details

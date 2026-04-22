@@ -6,7 +6,7 @@ import CodeViewerOverlay, { type CodeSection } from '@/components/ui/CodeViewerO
 
 interface DashItem { id:string; name:string; tag:string; description:string; preview:React.ReactNode; html:string; css:string; }
 
-const items: DashItem[] = [
+export const items: DashItem[] = [
   {id:'stat-revenue',name:'Revenue Stat Card',tag:'stats',description:'Dark KPI card with trend indicator.',
     preview:(<div style={{background:'linear-gradient(145deg,rgba(255,255,255,0.04),rgba(0,0,0,0.25))',border:'1px solid rgba(255,255,255,0.06)',borderRadius:16,padding:20,color:'#fff',width:200,fontFamily:'system-ui'}}>
       <div style={{fontSize:10,opacity:0.4,textTransform:'uppercase',letterSpacing:'0.1em',marginBottom:8}}>Total Revenue</div>
@@ -286,12 +286,12 @@ export default function Dashboard() {
             <div className="px-4 py-3 flex items-center justify-between border-t border-white/6">
               <div className="min-w-0 mr-3"><span className="text-xs font-medium text-white/60 truncate block">{item.name}</span><span className="text-[10px] text-white/25 uppercase tracking-wider">{item.tag}</span></div>
               <button onClick={()=>setSelected(item)} className="shrink-0 px-3.5 py-1.5 rounded-lg text-[11px] font-semibold bg-white/6 text-white/50 border border-white/8 hover:bg-white hover:text-[#0a0a0f] hover:border-white hover:-translate-y-0.5 transition-all duration-300 cursor-pointer">View Code →</button>
-                      <a
-                        href={`/component/${item.id}?collection=dashboard&name=${encodeURIComponent(item.name)}&css=${encodeURIComponent(item.css)}`}
+                      <Link
+                        href={`/component/${item.id}?collection=dashboard`}
                         className="relative z-10 px-3.5 py-1.5 rounded-lg text-[11px] font-semibold bg-[#6C63FF]/10 text-[#a78bfa] border border-[#6C63FF]/20 hover:bg-[#6C63FF]/20 hover:border-[#6C63FF]/40 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
                       >
                         Details
-                      </a>
+                      </Link>
             </div>
           </motion.article>))}
         </div>

@@ -37,6 +37,24 @@ const tagColors: Record<string, string> = {
 	UX: 'text-orange-400 bg-orange-500/10 border-orange-500/20',
 	Loaders: 'text-cyan-400 bg-cyan-500/10 border-cyan-500/20',
 	Inputs: 'text-violet-400 bg-violet-500/10 border-violet-500/20',
+	Typography: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
+	'Responsive Design': 'text-fuchsia-400 bg-fuchsia-500/10 border-fuchsia-500/20',
+	'Fluid Design': 'text-cyan-400 bg-cyan-500/10 border-cyan-500/20',
+	'clamp()': 'text-yellow-400 bg-yellow-500/10 border-yellow-500/20',
+	'Media Queries': 'text-indigo-400 bg-indigo-500/10 border-indigo-500/20',
+	Layout: 'text-lime-400 bg-lime-500/10 border-lime-500/20',
+	Performance: 'text-red-400 bg-red-500/10 border-red-500/20',
+	Tools: 'text-stone-400 bg-stone-500/10 border-stone-500/20',
+	React: 'text-blue-400 bg-blue-500/10 border-blue-500/20',
+	'Next.js': 'text-white bg-white/10 border-white/20',
+	Architecture: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
+	Frontend: 'text-indigo-400 bg-indigo-500/10 border-indigo-500/20',
+	JavaScript: 'text-yellow-400 bg-yellow-500/10 border-yellow-500/20',
+	HTML: 'text-orange-400 bg-orange-500/10 border-orange-500/20',
+	Components: 'text-blue-400 bg-blue-500/10 border-blue-500/20',
+	Conversion: 'text-violet-400 bg-violet-500/10 border-violet-500/20',
+	'App Router': 'text-white bg-white/10 border-white/20',
+	Microinteractions: 'text-rose-400 bg-rose-500/10 border-rose-500/20'
 };
 function tagClass(tag: string) {
 	return tagColors[tag] || 'text-white/40 bg-white/5 border-white/8';

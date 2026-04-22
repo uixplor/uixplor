@@ -86,12 +86,12 @@ export default function Gradients({ items }: { items: Item[] }) {
 										>
 											View Code →
 										</button>
-                      <a
-                        href={`/component/${item.id}?collection=gradients&name=${encodeURIComponent(item.name)}&css=${encodeURIComponent(item.css)}`}
+                      <Link
+                        href={`/component/${item.id}?collection=gradients`}
                         className="relative z-10 px-3.5 py-1.5 rounded-lg text-[11px] font-semibold bg-[#6C63FF]/10 text-[#a78bfa] border border-[#6C63FF]/20 hover:bg-[#6C63FF]/20 hover:border-[#6C63FF]/40 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
                       >
                         Details
-                      </a>
+                      </Link>
 									</div>
 								</div>
 							</motion.div>

@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from "react";
-import { useRouter } from "next/router";
-import { motion } from "motion/react";
-import PageSEO from "@/components/seo/PageSEO";
+import { useState, useCallback, useEffect, useRef } from 'react';
+import { useRouter } from 'next/router';
+import { motion } from 'motion/react';
+import PageSEO from '@/components/seo/PageSEO';
 
 type ActiveTool = "shadow" | "gradient" | "radius" | "animation" | "tailwind";
 const VALID_TOOLS: ActiveTool[] = [
@@ -73,6 +73,32 @@ function CodeWindow({
             }}
           >
             {copied ? "✓ Copied" : "Copy"}
+          </button>
+        )}
+        {!onCopy && <div className="w-12" />}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function CodeWindow({ title, children, onCopy, copied }: { title: string; children: React.ReactNode; onCopy?: () => void; copied?: boolean }) {
+  return (
+    <div className="rounded-xl overflow-hidden" style={{ background: '#0D0D0D', border: '1px solid rgba(255,255,255,0.08)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.03)' }}>
+      <div className="flex items-center justify-between px-4 py-3" style={{ background: 'rgba(255,255,255,0.03)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+        <div className="flex items-center gap-1.5">
+          <span className="w-3 h-3 rounded-full" style={{ background: '#ff5f57' }} />
+          <span className="w-3 h-3 rounded-full" style={{ background: '#febc2e' }} />
+          <span className="w-3 h-3 rounded-full" style={{ background: '#28c840' }} />
+        </div>
+        <span className="text-xs font-semibold tracking-wide" style={{ color: 'rgba(255,255,255,0.45)' }}>{title}</span>
+        {onCopy && (
+          <button
+            onClick={onCopy}
+            className="px-3 py-1 rounded-md text-xs font-semibold transition-all"
+            style={{ background: copied ? 'rgba(184,251,60,0.15)' : 'rgba(255,255,255,0.06)', color: copied ? '#B8FB3C' : 'rgba(255,255,255,0.7)' }}
+          >
+            {copied ? '✓ Copied' : 'Copy'}
           </button>
         )}
         {!onCopy && <div className="w-12" />}
@@ -208,17 +234,8 @@ function ShadowTool() {
             </button>
           ))}
         </div>
-        <div
-          className="h-40 rounded-2xl flex items-center justify-center border transition-colors duration-300"
-          style={{ background: bgStyles[previewBg].bg, borderColor: "#2A2A2A" }}
-        >
-          <div
-            className="w-20 h-20 rounded-2xl transition-colors duration-300"
-            style={{
-              background: bgStyles[previewBg].boxColor,
-              boxShadow: shadow,
-            }}
-          />
+        <div className="h-40 rounded-2xl flex items-center justify-center border transition-colors duration-300" style={{ background: bgStyles[previewBg].bg, borderColor: '#2A2A2A' }}>
+          <div className="w-20 h-20 rounded-2xl transition-colors duration-300" style={{ background: bgStyles[previewBg].boxColor, boxShadow: shadow }} />
         </div>
         <CodeWindow title="box-shadow.css" onCopy={copy} copied={copied}>
           <pre className="p-4 text-sm font-mono text-white/80">{css}</pre>
@@ -307,23 +324,9 @@ function GradientTool() {
         </div>
       </div>
       <div className="space-y-4">
-        <div
-          className="h-40 rounded-2xl border"
-          style={{ background: gradient, borderColor: "#2A2A2A" }}
-        />
-        <CodeWindow
-          title="gradient.css"
-          onCopy={() => {
-            navigator.clipboard.writeText(css).then(() => {
-              setCopied(true);
-              setTimeout(() => setCopied(false), 2000);
-            });
-          }}
-          copied={copied}
-        >
-          <pre className="p-4 text-sm font-mono text-white/80 whitespace-pre-wrap break-all">
-            {css}
-          </pre>
+        <div className="h-40 rounded-2xl border" style={{ background: gradient, borderColor: '#2A2A2A' }} />
+        <CodeWindow title="gradient.css" onCopy={() => { navigator.clipboard.writeText(css).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); }); }} copied={copied}>
+          <pre className="p-4 text-sm font-mono text-white/80 whitespace-pre-wrap break-all">{css}</pre>
         </CodeWindow>
       </div>
     </div>
@@ -391,31 +394,11 @@ function RadiusTool() {
         ))}
       </div>
       <div className="space-y-4">
-        <div
-          className="h-40 rounded-none flex items-center justify-center border"
-          style={{
-            background: "#0A0A0A",
-            borderColor: "#2A2A2A",
-            borderRadius: 12,
-          }}
-        >
-          <div
-            className="w-36 h-20 bg-linear-to-br from-[#6C63FF] to-[#8b5cf6]"
-            style={{
-              borderRadius: `${corners.tl}px ${corners.tr}px ${corners.br}px ${corners.bl}px`,
-            }}
-          />
+        <div className="h-40 rounded-none flex items-center justify-center border" style={{ background: '#0A0A0A', borderColor: '#2A2A2A', borderRadius: 12 }}>
+          <div className="w-36 h-20 bg-gradient-to-br from-[#6C63FF] to-[#8b5cf6]"
+            style={{ borderRadius: `${corners.tl}px ${corners.tr}px ${corners.br}px ${corners.bl}px` }} />
         </div>
-        <CodeWindow
-          title="border-radius.css"
-          onCopy={() => {
-            navigator.clipboard.writeText(css).then(() => {
-              setCopied(true);
-              setTimeout(() => setCopied(false), 2000);
-            });
-          }}
-          copied={copied}
-        >
+        <CodeWindow title="border-radius.css" onCopy={() => { navigator.clipboard.writeText(css).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); }); }} copied={copied}>
           <pre className="p-4 text-sm font-mono text-white/80">{css}</pre>
         </CodeWindow>
       </div>
@@ -584,29 +567,10 @@ function AnimationTool() {
               ...previewStyle,
             }}
           />
-          <span
-            className="text-[10px] font-semibold"
-            style={{ color: "rgba(255,255,255,0.2)" }}
-          >
-            Live Preview — {anim.type}
-          </span>
+          <span className="text-[10px] font-semibold" style={{ color: 'rgba(255,255,255,0.2)' }}>Live Preview — {anim.type}</span>
         </div>
-        <CodeWindow
-          title="animation.css"
-          onCopy={() => {
-            navigator.clipboard.writeText(css).then(() => {
-              setCopied(true);
-              setTimeout(() => setCopied(false), 2000);
-            });
-          }}
-          copied={copied}
-        >
-          <pre
-            className="p-4 text-sm font-mono text-white/80 leading-relaxed whitespace-pre-wrap"
-            style={{ minHeight: 130 }}
-          >
-            {css}
-          </pre>
+        <CodeWindow title="animation.css" onCopy={() => { navigator.clipboard.writeText(css).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); }); }} copied={copied}>
+          <pre className="p-4 text-sm font-mono text-white/80 leading-relaxed whitespace-pre-wrap" style={{ minHeight: 130 }}>{css}</pre>
         </CodeWindow>
       </div>
     </div>
@@ -832,6 +796,138 @@ function HighlightedCSSInput({
   );
 }
 
+const FALLBACK_PREFIX: [string, string][] = [
+  ['padding-top:', 'pt'],
+  ['padding-right:', 'pr'],
+  ['padding-bottom:', 'pb'],
+  ['padding-left:', 'pl'],
+  ['padding-inline:', 'px'],
+  ['padding-block:', 'py'],
+  ['padding:', 'p'],
+  ['margin-top:', 'mt'],
+  ['margin-right:', 'mr'],
+  ['margin-bottom:', 'mb'],
+  ['margin-left:', 'ml'],
+  ['margin-inline:', 'mx'],
+  ['margin-block:', 'my'],
+  ['margin:', 'm'],
+  ['gap:', 'gap'],
+  ['row-gap:', 'gap-y'],
+  ['column-gap:', 'gap-x'],
+  ['font-size:', 'text'],
+  ['color:', 'text'],
+  ['background-color:', 'bg'],
+  ['background:', 'bg'],
+  ['border-color:', 'border'],
+  ['border-width:', 'border'],
+  ['border-radius:', 'rounded'],
+  ['width:', 'w'],
+  ['height:', 'h'],
+  ['min-width:', 'min-w'],
+  ['min-height:', 'min-h'],
+  ['max-width:', 'max-w'],
+  ['max-height:', 'max-h'],
+  ['top:', 'top'],
+  ['right:', 'right'],
+  ['bottom:', 'bottom'],
+  ['left:', 'left'],
+  ['inset:', 'inset'],
+  ['z-index:', 'z'],
+  ['line-height:', 'leading'],
+  ['letter-spacing:', 'tracking'],
+  ['border-top-left-radius:', 'rounded-tl'],
+  ['border-top-right-radius:', 'rounded-tr'],
+  ['border-bottom-left-radius:', 'rounded-bl'],
+  ['border-bottom-right-radius:', 'rounded-br'],
+  ['outline-offset:', 'outline-offset'],
+  ['text-indent:', 'indent'],
+  ['transition-duration:', 'duration'],
+  ['transition-delay:', 'delay'],
+  ['opacity:', 'opacity'],
+  ['columns:', 'columns'],
+  ['aspect-ratio:', 'aspect'],
+  ['accent-color:', 'accent'],
+  ['caret-color:', 'caret'],
+  ['scroll-margin:', 'scroll-m'],
+  ['scroll-padding:', 'scroll-p'],
+  ['stroke-width:', 'stroke'],
+  ['fill:', 'fill'],
+  ['stroke:', 'stroke'],
+];
+
+function normalizeLine(raw: string): string {
+  const cleaned = raw.trim().replace(/;$/, '').trim();
+  const colonIdx = cleaned.indexOf(':');
+  if (colonIdx === -1) return cleaned;
+  const prop = cleaned.slice(0, colonIdx).trim();
+  const val = cleaned.slice(colonIdx + 1).trim();
+  return `${prop}: ${val}`;
+}
+
+function HighlightedCSSInput({ value, onChange }: { value: string, onChange: (val: string) => void }) {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const highlight = (code: string) => {
+    return code.split('\n').map((line, i) => {
+      const parts = line.split(/(:\s*)/);
+      if (parts.length >= 3) {
+        const prop = parts[0];
+        const colon = parts[1];
+        const rest = parts.slice(2).join('');
+        
+        let val = rest;
+        let semi = '';
+        if (rest.endsWith(';')) {
+          val = rest.slice(0, -1);
+          semi = ';';
+        }
+
+        return (
+          <div key={i} className="min-h-[1.5em]">
+            <span style={{ color: '#56b6c2' }}>{prop}</span>
+            <span style={{ color: '#abb2bf' }}>{colon}</span>
+            <span style={{ color: '#e5c07b' }}>{val}</span>
+            <span style={{ color: '#abb2bf' }}>{semi}</span>
+          </div>
+        );
+      }
+      return <div key={i} className="min-h-[1.5em] text-[#abb2bf]">{line || ' '}</div>;
+    });
+  };
+
+  const handleScroll = () => {
+    if (textareaRef.current) {
+      const bg = textareaRef.current.previousElementSibling as HTMLDivElement;
+      if (bg) bg.scrollTop = textareaRef.current.scrollTop;
+    }
+  };
+
+  return (
+    <div className="relative w-full h-[220px]">
+      <div 
+        className="absolute inset-0 p-4 font-mono text-sm leading-relaxed pointer-events-none overflow-hidden whitespace-pre"
+        style={{ color: '#abb2bf' }}
+      >
+        {highlight(value)}
+      </div>
+      <textarea
+        ref={textareaRef}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        onScroll={handleScroll}
+        className="absolute inset-0 w-full h-full p-4 font-mono text-sm leading-relaxed resize-none outline-none opacity-100"
+        style={{ 
+          background: 'transparent',
+          color: 'transparent',
+          caretColor: '#fff',
+          whiteSpace: 'pre'
+        }}
+        spellCheck={false}
+      />
+    </div>
+  );
+}
+
 function TailwindConverter() {
   const [input, setInput] = useState(
     "display: flex;\nalign-items: center;\nflex-direction: column;\nfont-weight: 600;\nborder-radius: 8px;\ngap: 16px;",
@@ -954,32 +1050,14 @@ const TOOL_ICONS: Record<ActiveTool, React.ReactNode> = {
     </svg>
   ),
   gradient: (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="9" />
       <path d="M12 3v18" />
       <path d="M3 12a9 9 0 0 0 9 9" opacity="0.4" />
     </svg>
   ),
   radius: (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M3 9V5a2 2 0 0 1 2-2h4" />
       <path d="M15 3h4a2 2 0 0 1 2 2v4" />
       <path d="M21 15v4a2 2 0 0 1-2 2h-4" />
@@ -987,16 +1065,7 @@ const TOOL_ICONS: Record<ActiveTool, React.ReactNode> = {
     </svg>
   ),
   animation: (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 2v4" />
       <path d="M12 18v4" />
       <path d="M4.93 4.93l2.83 2.83" />
@@ -1008,16 +1077,7 @@ const TOOL_ICONS: Record<ActiveTool, React.ReactNode> = {
     </svg>
   ),
   tailwind: (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <polyline points="16 18 22 12 16 6" />
       <polyline points="8 6 2 12 8 18" />
       <line x1="14" y1="4" x2="10" y2="20" />
@@ -1026,19 +1086,19 @@ const TOOL_ICONS: Record<ActiveTool, React.ReactNode> = {
 };
 
 const TOOL_COLORS: Record<ActiveTool, string> = {
-  shadow: "#a78bfa",
-  gradient: "#f472b6",
-  radius: "#60a5fa",
-  animation: "#fbbf24",
-  tailwind: "#B8FB3C",
+  shadow: '#a78bfa',
+  gradient: '#f472b6',
+  radius: '#60a5fa',
+  animation: '#fbbf24',
+  tailwind: '#B8FB3C',
 };
 
 const TOOLS: { id: ActiveTool; label: string; desc: string }[] = [
-  { id: "shadow", label: "Box Shadow", desc: "X, Y, blur, spread, color" },
-  { id: "gradient", label: "Gradient", desc: "Linear & radial gradients" },
-  { id: "radius", label: "Border Radius", desc: "Per-corner control" },
-  { id: "animation", label: "CSS Animation", desc: "Keyframe generator" },
-  { id: "tailwind", label: "CSS → Tailwind", desc: "Convert CSS to classes" },
+  { id: 'shadow', label: 'Box Shadow', desc: 'X, Y, blur, spread, color' },
+  { id: 'gradient', label: 'Gradient', desc: 'Linear & radial gradients' },
+  { id: 'radius', label: 'Border Radius', desc: 'Per-corner control' },
+  { id: 'animation', label: 'CSS Animation', desc: 'Keyframe generator' },
+  { id: 'tailwind', label: 'CSS → Tailwind', desc: 'Convert CSS to classes' },
 ];
 
 export default function ToolkitPage() {
@@ -1074,26 +1134,19 @@ export default function ToolkitPage() {
             className="absolute inset-0 pointer-events-none"
             style={{
               background: `radial-gradient(ellipse 60% 50% at 50% 0%, ${toolColor}08 0%, transparent 70%)`,
-              transition: "background 0.5s ease",
+              transition: 'background 0.5s ease',
             }}
           />
           <div className="container px-4 sm:px-6 pt-28 pb-6 relative">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              <p
-                className="text-[11px] font-bold uppercase tracking-[0.2em] mb-3"
-                style={{ color: toolColor }}
-              >
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+              <p className="text-[11px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: toolColor }}>
                 Developer Tools
               </p>
               <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">
-                Dev <span style={{ color: "#B8FB3C" }}>Toolkit</span>
+                Dev <span style={{ color: '#B8FB3C' }}>Toolkit</span>
               </h1>
               <p className="text-white/35 text-sm max-w-md">
-                Production-ready CSS generators and conversion utilities for
-                modern frontend workflows.
+                Production-ready CSS generators and conversion utilities for modern frontend workflows.
               </p>
             </motion.div>
           </div>
@@ -1110,22 +1163,16 @@ export default function ToolkitPage() {
                   onClick={() => setActive(t.id)}
                   className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 border group"
                   style={{
-                    background: isActive
-                      ? `${color}12`
-                      : "rgba(255,255,255,0.02)",
-                    borderColor: isActive
-                      ? `${color}40`
-                      : "rgba(255,255,255,0.06)",
-                    color: isActive ? color : "rgba(255,255,255,0.4)",
+                    background: isActive ? `${color}12` : 'rgba(255,255,255,0.02)',
+                    borderColor: isActive ? `${color}40` : 'rgba(255,255,255,0.06)',
+                    color: isActive ? color : 'rgba(255,255,255,0.4)',
                   }}
                 >
                   <span
                     className="flex items-center justify-center w-7 h-7 rounded-lg transition-all duration-200"
                     style={{
-                      background: isActive
-                        ? `${color}18`
-                        : "rgba(255,255,255,0.04)",
-                      color: isActive ? color : "rgba(255,255,255,0.35)",
+                      background: isActive ? `${color}18` : 'rgba(255,255,255,0.04)',
+                      color: isActive ? color : 'rgba(255,255,255,0.35)',
                     }}
                   >
                     {TOOL_ICONS[t.id]}
@@ -1140,17 +1187,17 @@ export default function ToolkitPage() {
             key={active}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
             className="rounded-2xl border overflow-hidden"
             style={{
-              background: "rgba(18,18,24,0.8)",
+              background: 'rgba(18,18,24,0.8)',
               borderColor: `${toolColor}15`,
               boxShadow: `0 0 80px ${toolColor}05, 0 4px 32px rgba(0,0,0,0.3)`,
             }}
           >
             <div
               className="flex items-center gap-3.5 px-6 py-4 border-b"
-              style={{ borderColor: "rgba(255,255,255,0.05)" }}
+              style={{ borderColor: 'rgba(255,255,255,0.05)' }}
             >
               <div
                 className="w-9 h-9 rounded-xl flex items-center justify-center"
@@ -1162,30 +1209,24 @@ export default function ToolkitPage() {
                 {TOOL_ICONS[active]}
               </div>
               <div>
-                <h2 className="text-[15px] font-bold text-white leading-tight">
-                  {tool.label}
-                </h2>
+                <h2 className="text-[15px] font-bold text-white leading-tight">{tool.label}</h2>
                 <p className="text-[11px] text-white/35 mt-0.5">{tool.desc}</p>
               </div>
             </div>
 
             <div className="p-5 sm:p-6">
-              {active === "shadow" && <ShadowTool />}
-              {active === "gradient" && <GradientTool />}
-              {active === "radius" && <RadiusTool />}
-              {active === "animation" && <AnimationTool />}
-              {active === "tailwind" && <TailwindConverter />}
+              {active === 'shadow' && <ShadowTool />}
+              {active === 'gradient' && <GradientTool />}
+              {active === 'radius' && <RadiusTool />}
+              {active === 'animation' && <AnimationTool />}
+              {active === 'tailwind' && <TailwindConverter />}
             </div>
 
-            <div
-              className="h-2px"
-              style={{
-                background: `linear-gradient(to right, transparent, ${toolColor}30, transparent)`,
-              }}
-            />
+            <div className="h-[2px]" style={{ background: `linear-gradient(to right, transparent, ${toolColor}30, transparent)` }} />
           </motion.div>
         </section>
       </main>
     </>
   );
 }
+
