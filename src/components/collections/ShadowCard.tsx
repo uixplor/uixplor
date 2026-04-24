@@ -57,7 +57,7 @@ export default function ShadowCard({ id, name, css, category, index }: ShadowCar
 			}}
 		>
 			{/* Shadow Demo Area */}
-			<div className="p-5 sm:p-6 flex flex-col items-center justify-center min-h-[140px] sm:min-h-[160px]">
+			<div className="p-5 sm:p-6 flex flex-col items-center justify-center min-h-140px sm:min-h-160px">
 				{/* Inner shadow preview box */}
 				<div
 					className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white mb-4 transition-shadow duration-300"

@@ -56,7 +56,7 @@ function Card({ children, className = '' }: { children: React.ReactNode; classNa
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-start gap-3 py-2 border-b border-white/4 last:border-0">
-      <span className="text-xs text-white/35 min-w-[130px] shrink-0">{label}</span>
+      <span className="text-xs text-white/35 min-w-32.5 shrink-0">{label}</span>
       <span className="text-xs text-white/75 font-mono">{value}</span>
     </div>
   );
@@ -288,7 +288,7 @@ function Pages() {
       <div className="space-y-1.5">
         {routes.map(r => (
           <div key={r.path} className="flex items-start gap-3 p-3 rounded-xl bg-white/2 border border-white/5">
-            <code className="text-[#B8FB3C] font-mono text-xs min-w-[200px] shrink-0 pt-0.5">{r.path}</code>
+            <code className="text-[#B8FB3C] font-mono text-xs min-w-50 shrink-0 pt-0.5">{r.path}</code>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1 flex-wrap">
                 <code className="text-[10px] font-mono text-white/30">{r.file}</code>
@@ -499,7 +499,7 @@ function Deploy() {
             { b: 'newfeatures-testing', c: 'Development branch — push here to get Vercel preview URLs' },
           ].map(r => (
             <div key={r.b} className="flex items-start gap-3">
-              <code className="text-[#B8FB3C] font-mono text-xs min-w-[160px]">{r.b}</code>
+              <code className="text-[#B8FB3C] font-mono text-xs min-w-40">{r.b}</code>
               <p className="text-xs text-white/45">{r.c}</p>
             </div>
           ))}
