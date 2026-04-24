@@ -626,6 +626,8 @@ function DocsContent() {
             <p className="text-white/30 text-[11px] mt-0.5">doc reference · 2026</p>
           </div>
           <nav className="space-y-0.5">
+
+
             {NAV.map(n => (
               <button
                 key={n.id}
