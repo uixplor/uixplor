@@ -29,9 +29,13 @@ function extractClassName(css: string): string {
 }
 
 /** Convert CSS class-based html to use standard class attribute */
-function buildDefaultHTML(className: string, componentName: string, customHtml?: string): string {
+function buildDefaultHTML(
+  className: string,
+  componentName: string,
+  customHtml?: string,
+): string {
   if (customHtml) return customHtml;
-  
+
   const lower = componentName.toLowerCase();
   if (lower.includes("button") || lower.includes("btn")) {
     return `<button class="${className}">${componentName}</button>`;
@@ -52,7 +56,12 @@ function buildDefaultHTML(className: string, componentName: string, customHtml?:
 }
 
 /** Build the full HTML+CSS output */
-function buildHtmlCode(css: string, className: string, componentName: string, customHtml?: string): string {
+function buildHtmlCode(
+  css: string,
+  className: string,
+  componentName: string,
+  customHtml?: string,
+): string {
   const htmlEl = buildDefaultHTML(className, componentName, customHtml);
   return `<!DOCTYPE html>
 <html lang="en">
@@ -81,15 +90,22 @@ function buildHtmlCode(css: string, className: string, componentName: string, cu
 }
 
 /** Convert CSS class names to JSX className and wrap in React component */
-function buildReactCode(css: string, className: string, componentName: string, customHtml?: string): string {
+function buildReactCode(
+  css: string,
+  className: string,
+  componentName: string,
+  customHtml?: string,
+): string {
   const pascalName = componentName
     .replace(/[^a-zA-Z0-9 ]/g, "")
     .split(" ")
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join("");
 
-  const htmlEl = buildDefaultHTML(className, componentName, customHtml)
-    .replace(/class=/g, 'className=');
+  const htmlEl = buildDefaultHTML(className, componentName, customHtml).replace(
+    /class=/g,
+    "className=",
+  );
 
   return `import React from 'react';
 import './${pascalName}.css';
@@ -109,7 +125,12 @@ ${css}`;
 }
 
 /** Next.js version (same as React but with module.css approach) */
-function buildNextjsCode(css: string, className: string, componentName: string, customHtml?: string): string {
+function buildNextjsCode(
+  css: string,
+  className: string,
+  componentName: string,
+  customHtml?: string,
+): string {
   const pascalName = componentName
     .replace(/[^a-zA-Z0-9 ]/g, "")
     .split(" ")
@@ -117,8 +138,11 @@ function buildNextjsCode(css: string, className: string, componentName: string, 
     .join("");
 
   const htmlEl = buildDefaultHTML(className, componentName, customHtml)
-    .replace(new RegExp(`class="${className}"`, 'g'), `className={styles.${className}}`)
-    .replace(/class=/g, 'className=');
+    .replace(
+      new RegExp(`class="${className}"`, "g"),
+      `className={styles.${className}}`,
+    )
+    .replace(/class=/g, "className=");
 
   return `import styles from './${pascalName}.module.css';
 
@@ -156,9 +180,15 @@ function buildAngularTs(className: string, componentName: string): string {
 export class ${pascalName}Component {}`;
 }
 
-function buildAngularHtml(className: string, componentName: string, customHtml?: string): string {
-  return buildDefaultHTML(className, componentName, customHtml)
-    .replace(new RegExp(`class="${className}"`, 'g'), `class="${className}"`);
+function buildAngularHtml(
+  className: string,
+  componentName: string,
+  customHtml?: string,
+): string {
+  return buildDefaultHTML(className, componentName, customHtml).replace(
+    new RegExp(`class="${className}"`, "g"),
+    `class="${className}"`,
+  );
 }
 
 // ─── Project structure trees ─────────────────────────────────────────────────
@@ -168,9 +198,9 @@ const PROJECT_STRUCTURES: Record<
   (name: string, className: string) => string[][]
 > = {
   html: (name) => [
-    ['folder:0', 'project/'],
-    ['file:1', 'index.html'],
-    ['file:1', 'styles.css'],
+    ["folder:0", "project/"],
+    ["file:1", "index.html"],
+    ["file:1", "styles.css"],
   ],
   react: (name, className) => {
     const pascal = name
@@ -179,11 +209,11 @@ const PROJECT_STRUCTURES: Record<
       .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
       .join("");
     return [
-      ['folder:0', 'src/'],
-      ['folder:1', 'components/'],
-      ['file:2', `${pascal}.jsx`],
-      ['file:2', `${pascal}.css`],
-      ['file:1', 'App.jsx'],
+      ["folder:0", "src/"],
+      ["folder:1", "components/"],
+      ["file:2", `${pascal}.jsx`],
+      ["file:2", `${pascal}.css`],
+      ["file:1", "App.jsx"],
     ];
   },
   nextjs: (name, className) => {
@@ -193,22 +223,22 @@ const PROJECT_STRUCTURES: Record<
       .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
       .join("");
     return [
-      ['folder:0', 'app/'],
-      ['folder:1', 'components/'],
-      ['file:2', `${pascal}.tsx`],
-      ['file:2', `${pascal}.module.css`],
-      ['file:1', 'page.tsx'],
+      ["folder:0", "app/"],
+      ["folder:1", "components/"],
+      ["file:2", `${pascal}.tsx`],
+      ["file:2", `${pascal}.module.css`],
+      ["file:1", "page.tsx"],
     ];
   },
   angular: (name, className) => {
     const tag = className.replace(/_/g, "-");
     return [
-      ['folder:0', 'src/'],
-      ['folder:1', 'app/'],
-      ['folder:2', 'components/'],
-      ['file:3', `${tag}.component.ts`],
-      ['file:3', `${tag}.component.html`],
-      ['file:3', `${tag}.component.css`],
+      ["folder:0", "src/"],
+      ["folder:1", "app/"],
+      ["folder:2", "components/"],
+      ["file:3", `${tag}.component.ts`],
+      ["file:3", `${tag}.component.html`],
+      ["file:3", `${tag}.component.css`],
     ];
   },
 };
@@ -223,7 +253,9 @@ function highlight(
   const lines = code.split("\n");
   return lines.map((line, i) => {
     // CSS property coloring
-    const parts = line.split(/(\s*\/\*.*?\*\/|"[^"]*"|'[^']*'|<[^>]+>|:[a-zA-Z-]+(?=\s*{)|#[0-9a-fA-F]{3,6}(?=[;\s,])|rgba?\([^)]+\)|[a-z-]+(?=\s*:(?!:))|\b(?:import|export|default|from|return|const|let|var|function|class|interface|type|extends|implements|if|for|while)\b|\b(?:className|style|href|src|alt|onClick|onChange|type|value|placeholder)\b)/g);
+    const parts = line.split(
+      /(\s*\/\*.*?\*\/|"[^"]*"|'[^']*'|<[^>]+>|:[a-zA-Z-]+(?=\s*{)|#[0-9a-fA-F]{3,6}(?=[;\s,])|rgba?\([^)]+\)|[a-z-]+(?=\s*:(?!:))|\b(?:import|export|default|from|return|const|let|var|function|class|interface|type|extends|implements|if|for|while)\b|\b(?:className|style|href|src|alt|onClick|onChange|type|value|placeholder)\b)/g,
+    );
     return (
       <div key={i}>
         {parts.map((part, j) => {
@@ -403,24 +435,66 @@ function FrameworkContent({
     switch (framework) {
       case "html":
         return [
-          { label: 'index.html', code: buildHtmlCode(component.css, className, name, component.html), lang: 'html' as const },
-          { label: 'styles.css', code: component.css, lang: 'css' as const },
+          {
+            label: "index.html",
+            code: buildHtmlCode(component.css, className, name, component.html),
+            lang: "html" as const,
+          },
+          { label: "styles.css", code: component.css, lang: "css" as const },
         ];
       case "react":
         return [
-          { label: `${name.replace(/\s+/g, '')}.jsx`, code: buildReactCode(component.css, className, name, component.html), lang: 'jsx' as const },
-          { label: `${name.replace(/\s+/g, '')}.css`, code: buildReactCss(component.css), lang: 'css' as const },
+          {
+            label: `${name.replace(/\s+/g, "")}.jsx`,
+            code: buildReactCode(
+              component.css,
+              className,
+              name,
+              component.html,
+            ),
+            lang: "jsx" as const,
+          },
+          {
+            label: `${name.replace(/\s+/g, "")}.css`,
+            code: buildReactCss(component.css),
+            lang: "css" as const,
+          },
         ];
       case "nextjs":
         return [
-          { label: `${name.replace(/\s+/g, '')}.tsx`, code: buildNextjsCode(component.css, className, name, component.html), lang: 'jsx' as const },
-          { label: `${name.replace(/\s+/g, '')}.module.css`, code: buildNextjsCss(component.css, className), lang: 'css' as const },
+          {
+            label: `${name.replace(/\s+/g, "")}.tsx`,
+            code: buildNextjsCode(
+              component.css,
+              className,
+              name,
+              component.html,
+            ),
+            lang: "jsx" as const,
+          },
+          {
+            label: `${name.replace(/\s+/g, "")}.module.css`,
+            code: buildNextjsCss(component.css, className),
+            lang: "css" as const,
+          },
         ];
       case "angular":
         return [
-          { label: `${className}.component.ts`, code: buildAngularTs(className, name), lang: 'ts' as const },
-          { label: `${className}.component.html`, code: buildAngularHtml(className, name, component.html), lang: 'html' as const },
-          { label: `${className}.component.css`, code: component.css, lang: 'css' as const },
+          {
+            label: `${className}.component.ts`,
+            code: buildAngularTs(className, name),
+            lang: "ts" as const,
+          },
+          {
+            label: `${className}.component.html`,
+            code: buildAngularHtml(className, name, component.html),
+            lang: "html" as const,
+          },
+          {
+            label: `${className}.component.css`,
+            code: component.css,
+            lang: "css" as const,
+          },
         ];
     }
   }, [framework, component, className, name]);
@@ -443,21 +517,68 @@ function FrameworkContent({
       className="grid grid-cols-1 md:grid-cols-4 gap-6"
     >
       {/* File tree */}
-      <div className="md:col-span-1 rounded-xl border p-4 h-fit" style={{ background: 'rgba(255,255,255,0.02)', borderColor: '#2A2A2A' }}>
-        <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: '#38bdf8' }}>Project Structure</p>
+      <div
+        className="md:col-span-1 rounded-xl border p-4 h-fit"
+        style={{ background: "rgba(255,255,255,0.02)", borderColor: "#2A2A2A" }}
+      >
+        <p
+          className="text-[10px] font-bold uppercase tracking-widest mb-3"
+          style={{ color: "#38bdf8" }}
+        >
+          Project Structure
+        </p>
         <div className="space-y-1.5">
           {structure.map(([typeWithIndent, file], i) => {
-            const [type, indent] = typeWithIndent.split(':');
+            const [type, indent] = typeWithIndent.split(":");
             const ml = parseInt(indent) * 16;
-            
+
             return (
-              <div key={i} className="flex items-center gap-2" style={{ marginLeft: ml }}>
-                {type === 'folder' ? (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: '#71717a' }}><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+              <div
+                key={i}
+                className="flex items-center gap-2"
+                style={{ marginLeft: ml }}
+              >
+                {type === "folder" ? (
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{ color: "#71717a" }}
+                  >
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                  </svg>
                 ) : (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'rgba(255,255,255,0.45)' }}><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{ color: "rgba(255,255,255,0.45)" }}
+                  >
+                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                    <polyline points="13 2 13 9 20 9"></polyline>
+                  </svg>
                 )}
-                <span className="text-[12px] font-mono" style={{ color: type === 'folder' ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.6)' }}>{file}</span>
+                <span
+                  className="text-[12px] font-mono"
+                  style={{
+                    color:
+                      type === "folder"
+                        ? "rgba(255,255,255,0.8)"
+                        : "rgba(255,255,255,0.6)",
+                  }}
+                >
+                  {file}
+                </span>
               </div>
             );
           })}
@@ -581,7 +702,8 @@ export default function ComponentDetailPage() {
 </style></head><body>${buildDefaultHTML(className, component.name, component.html)}</body></html>`;
 
   // Playground URL - use the dedicated playground page with CSS preloaded in URL params
-  const playgroundUrl = `/playground?collection=${encodeURIComponent(collection || "buttons")}&id=${encodeURIComponent(id || "")}&name=${encodeURIComponent(component.name)}&css=${encodeURIComponent(component.css)}`;
+  const playgroundUrl = `/playground?collection=${collection || "buttons"}&id=${id}`;
+
   const collectionHref = `/collections/${collection || "buttons"}`;
 
   return (
