@@ -136,14 +136,27 @@ export default function BlogPost({ post, nextPost, relatedPosts }: Props) {
 	const observerRef = useRef<IntersectionObserver | null>(null);
 
 	useEffect(() => {
-		const headings = document.querySelectorAll('h2[data-toc]');
+		const headings = Array.from(document.querySelectorAll('section[data-toc]'));
 		if (!headings.length) return;
-		observerRef.current = new IntersectionObserver(
-			entries => { entries.forEach(entry => { if (entry.isIntersecting) setActiveId(entry.target.id); }); },
-			{ rootMargin: '-80px 0px -60% 0px', threshold: 0 }
-		);
-		headings.forEach(el => observerRef.current?.observe(el));
-		return () => observerRef.current?.disconnect();
+		
+		const handleScroll = () => {
+			const targetY = 150; // offset from top, provides a scroll-up buffer
+			let active = headings[0].id;
+			
+			for (let i = 0; i < headings.length; i++) {
+				const rect = headings[i].getBoundingClientRect();
+				if (rect.top <= targetY) {
+					active = headings[i].id;
+				}
+			}
+			
+			setActiveId(active);
+		};
+
+		window.addEventListener('scroll', handleScroll, { passive: true });
+		handleScroll(); // Initial check
+		
+		return () => window.removeEventListener('scroll', handleScroll);
 	}, [post.slug]);
 
 	const articleJsonLd = {

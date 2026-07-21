@@ -23,7 +23,8 @@ interface ComponentData {
 // ─── Helpers: code generation ────────────────────────────────────────────────
 
 /** Extract the CSS class name used in a CSS snippet */
-function extractClassName(css: string): string {
+function extractClassName(css?: string): string {
+  if (!css) return "component";
   const match = css.match(/^\s*\.([a-zA-Z0-9_-]+)/m);
   return match ? match[1] : "component";
 }
@@ -36,7 +37,7 @@ function buildDefaultHTML(
 ): string {
   if (customHtml) return customHtml;
 
-  const lower = componentName.toLowerCase();
+  const lower = (componentName || "").toLowerCase();
   if (lower.includes("button") || lower.includes("btn")) {
     return `<button class="${className}">${componentName}</button>`;
   }
@@ -429,7 +430,7 @@ function FrameworkContent({
   component: ComponentData;
 }) {
   const className = extractClassName(component.css);
-  const name = component.name;
+  const name = component.name || (component as any).title || "Component";
 
   const files = useMemo(() => {
     switch (framework) {
@@ -639,20 +640,29 @@ export default function ComponentDetailPage() {
       try {
         const collectionName = collection || "gradients";
 
-        const data = await import(`../../../data/${collectionName}.json`);
-        const components = Array.isArray(data.default)
-          ? data.default
-          : data.default.components || [];
+        // Attempt to load the data file
+        let module;
+        try {
+          module = await import(`../../../data/${collectionName}.json`);
+        } catch (e) {
+          console.warn(`Collection ${collectionName} not found, falling back to gradients`);
+          module = await import(`../../../data/gradients.json`);
+        }
+
+        const data = module.default || module;
+        const components = Array.isArray(data)
+          ? data
+          : (data && typeof data === 'object' ? (data.components || []) : []);
 
         const found = components.find(
-          (c: ComponentData) => String(c.id) === String(id),
+          (c: any) => c && String(c.id || c.slug || c.name) === String(id),
         );
 
         if (found) {
           setComponent(found);
         }
       } catch (err) {
-        console.error("Data Error", err);
+        console.error("Data Load Error:", err);
       } finally {
         setIsLoaded(true);
       }
@@ -698,8 +708,8 @@ export default function ComponentDetailPage() {
   const previewSrcdoc = `<!DOCTYPE html><html><head><style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: #0D0D0D; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-  ${component.css}
-</style></head><body>${buildDefaultHTML(className, component.name, component.html)}</body></html>`;
+  ${component.css || ""}
+</style></head><body>${buildDefaultHTML(className, component.name || (component as any).title || "Component", component.html)}</body></html>`;
 
   // Playground URL - use the dedicated playground page with CSS preloaded in URL params
   const playgroundUrl = `/playground/${id}?collection=${collection || "buttons"}`;
